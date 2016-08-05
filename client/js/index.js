@@ -1,11 +1,8 @@
 import io from 'socket.io-client';
-import LoginView from './views/LoginView.js';
-console.log(LoginView);
+import ViewController from './controllers/ViewController.js';
 import $ from 'jquery';
 
-let loginView = new LoginView();
-
-$('.main').html(loginView.render());
+ViewController.start();
 
 let connection = io('http://localhost:3001');
 
