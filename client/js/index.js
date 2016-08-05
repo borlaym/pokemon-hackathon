@@ -1,4 +1,5 @@
 import io from 'socket.io-client';
+import Backbone from 'backbone';
 
 let connection = io('http://localhost:3001');
 
