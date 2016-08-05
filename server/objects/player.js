@@ -12,15 +12,23 @@ module.exports = class Player {
 		Object.keys(this.events).forEach(key => {
 			this.socket.on(key, this[this.events[key]].bind(this));
 		});
-		this.pokemons = [Pokemon.Bulbasaur, Pokemon.Charmander, Pokemon.Squirtle, Pokemon.Pickachu, Pokemon.Pidgey, Pokemon.Rattata]
+		this.pokemon = [new Pokemon.Bulbasaur(), new Pokemon.Charmander(), new Pokemon.Squirtle(),
+			new Pokemon.Pikachu(), new Pokemon.Pidgey(), new Pokemon.Rattata()
+		];
+		this.pokemon = this.pokemon.sort( (a, b) => Math.random() - 0.5);
+		this.currentPokemon = 0
 	}
 	addName(name) {
 		this.name = name;
 	}
+	getActivePokemon() {
+		return this.pokemon[this.currentPokemon];
+	}
 	serialize() {
 		return {
 			name: this.name,
-			pokemons: this.pokemons.map(pokemon => pokemon.serialize())
+			pokemon: this.pokemon.map(pokemon => pokemon.serialize()),
+			currentPokemon: this.currentPokemon
 		}
 	}
 }

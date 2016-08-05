@@ -8,7 +8,7 @@ let ServerController = {
 	},
 	initialize() {
 		EventBus.on('connect', this.connect.bind(this));
-		EventBus.on('action', type => this.connection.emit('action', type));
+		EventBus.on('command', payload => this.connection.emit('command', payload));
 	},
 	connect(userName) {
 		this.connection = io('http://localhost:3001');
