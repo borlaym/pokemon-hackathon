@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import EventBus from '../eventBus.js';
 import PokemonView from '../views/PokemonView.js';
-import TextView from '../views/TextView.js';
+import TextView from '../views/Textview.js';
 
 let LoginView = Backbone.View.extend({
 	events: {
