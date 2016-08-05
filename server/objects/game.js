@@ -45,7 +45,8 @@ class Game {
 		if (actingPokemon.getCurrentHP() < 1) {
 			return {
 				type: 'POKEMON_FAINTED',
-				pokemon: actingPokemon.name
+				pokemon: actingPokemon.name,
+				trainer: command.player.socket.id
 			};
 		}
 
@@ -63,7 +64,8 @@ class Game {
 					type: 'POKEMON_USED_MOVE',
 					pokemon: attackingPokemon.name,
 					move: move.name,
-					superEffective: false
+					superEffective: false,
+					trainer: command.player.socket.id
 				};
 		}
 	}

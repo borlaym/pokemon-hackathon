@@ -16,7 +16,8 @@ module.exports = class Player {
 			new Pokemon.Pikachu(), new Pokemon.Pidgey(), new Pokemon.Rattata()
 		];
 		this.pokemon = this.pokemon.sort( (a, b) => Math.random() - 0.5);
-		this.currentPokemon = 0
+		this.currentPokemon = 0;
+		this.socket.emit('myId', this.socket.id);
 	}
 	addName(name) {
 		this.name = name;

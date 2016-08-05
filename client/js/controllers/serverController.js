@@ -4,7 +4,8 @@ import EventBus from '../eventBus.js';
 let ServerController = {
 	events: {
 		gameStart: 'gameStart',
-		roundEnd: 'roundEnd'
+		roundEnd: 'roundEnd',
+		myId: 'myId'
 	},
 	initialize() {
 		EventBus.on('connect', this.connect.bind(this));
@@ -23,6 +24,9 @@ let ServerController = {
 	},
 	roundEnd(results) {
 		EventBus.trigger('roundEnd', results);
+	},
+	myId(id) {
+		EventBus.trigger('myId', id);
 	}
 }
 

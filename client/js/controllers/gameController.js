@@ -7,6 +7,9 @@ let GameController = {
 	initialize() {
 		EventBus.on('gameStart', this.setGameState.bind(this));
 		EventBus.on('roundEnd', this.resolveEvents.bind(this));
+		EventBus.on('myId', (id) => {
+			this.myId = id;
+		});
 	},
 	setGameState(gameState) {
 		if (!this.players) {
@@ -20,10 +23,8 @@ let GameController = {
 	},
 	// Resolve the events sent by the server
 	resolveEvents(data) {
-		console.log('data', data);
 		let viewActions = data.events.map(event => this.createViewActions(event));
 		viewActions = _.flatten(viewActions);
-		console.log('viewActions', viewActions);
 		let asyncFunctions = viewActions.map(viewAction => {
 			return (callback) => {
 				EventBus.trigger('viewAction:' + viewAction.type, viewAction);
@@ -37,11 +38,9 @@ let GameController = {
 	},
 	// Create view actions from events
 	createViewActions(event) {
-		console.log(event.type);
 		let viewActions = [];
 		switch (event.type) {
 			case 'POKEMON_USED_MOVE':
-				console.log('ITS A USE MOVE');
 				viewActions.push({
 					type: 'SHOW_TEXT',
 					text: event.pokemon + ' used ' + event.move + '!'
@@ -67,6 +66,12 @@ let GameController = {
 				break;
 		}
 		return viewActions;
+	},
+	getOpponent() {
+		this.players.find(player => player.get('id') !== this.myId);
+	},
+	getMyself() {
+		this.players.find(player => player.get('id') === this.myId);
 	}
 }
 
