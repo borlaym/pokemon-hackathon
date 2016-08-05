@@ -8,8 +8,10 @@ let waitingPlayer;
 let games = [];
 
 let Game = require('./objects/game.js');
+let Player = require('./objects/player.js');
 
 io.on('connection', function(socket){
+	let newPlayer = new Player(socket);
   if (waitingPlayer) {
 		let newGame = new Game([waitingPlayer, socket]);
 		games.push(newGame);

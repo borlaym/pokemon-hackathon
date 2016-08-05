@@ -5,7 +5,7 @@ class Game {
 		this.id = Math.floor(Math.random() * 900000);
 		this.players = players;
 		this.players.forEach(socket => socket.join(this.id));
-		this.broadcast('Game start', {});
+		this.broadcast('gameStart', {});
 		this.on('msg', this.foo.bind(this));
 	}
 	broadcast(name, payload) {
