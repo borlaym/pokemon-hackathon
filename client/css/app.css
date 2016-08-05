@@ -1,6 +1,7 @@
 html {
 	font-family: pixelfont;
 	font-size: 20px;
+	background: #d4bd9e;
 }
 
 .text {
@@ -10,9 +11,14 @@ html {
 }
 
 .gameView {
+	margin: 30px auto;
+	transform: scale(3);
+	transform-origin: top center;
 	background: #f8f8f8;
 	border: 1px solid #66667e;
 	width: 160px;
+	image-rendering: pixelated;
+	position: relative;
 }
 
 
@@ -23,7 +29,7 @@ html {
 	margin: 0;
 	padding: 0;
 	margin-left: 19px;
-	margin-top: 6px;
+	margin-top: 7px;
 }
 
 .healthbar {
@@ -66,10 +72,15 @@ html {
 	position: absolute;
 	top: auto;
 	left: auto;
-	right: 11px;
+	right: 20px;
 	bottom: 3px;
 	background: url(../../images/bg2.png);
 	background-position: bottom right;
+}
+
+.pokemonview.myself .status .health {
+	margin-top: 2px;
+	margin-left: 21px;
 }
 
 .pokemonview img {
@@ -78,7 +89,7 @@ html {
 	position: absolute;
 	left:8px;
 	top: 0px;
-	transition: 0.5s transform ar;
+	transition: 0.5s transform linear;
 }
 
 .pokemonview.opponent img {
@@ -98,6 +109,41 @@ html {
 
 .pokemonview.fainted img {
 	transform: translateY(120px);
+}
+
+.actionView {
+	width: 160px;
+	height: 48px;
+	background: url(../../images/bg4.png);
+	box-sizing: border-box;
+	padding-left: 73px;
+	padding-top: 11px;
+	font-size: 7px;
+}
+
+.actionView button {
+	padding: none;
+	background: none;
+	border: none;
+	font-family: pixelfont;
+	outline: none;
+}
+
+.textview {
+	margin: 0;
+	width: 160px;
+	height: 48px;
+	position: absolute;
+	bottom: -1px;
+	left: 0px;
+	font-size: 7px;
+	background: url(../../images/bg3.png);
+	box-sizing: border-box;
+	padding-top: 14px;
+	padding-left: 10px;
+	padding-right: 10px;
+	line-height: 10px;
+	background-repeat: no-repeat;
 }
 
 @keyframes blink {

@@ -43,7 +43,7 @@ let ViewController = {
 			this.textView = null;
 			callback();
 		})
-		$(document.body).append(this.textView.render());
+		this.view.$el.append(this.textView.render());
 	}
 }
 
