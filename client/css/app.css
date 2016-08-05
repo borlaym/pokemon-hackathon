@@ -5,52 +5,86 @@ html {
 
 .text {
   font-size: 2rem;
-  line-height: 1.5;
+  -height: 1.5;
   color: #FF0000;
+}
+
+.gameView {
+	background: #f8f8f8;
+	border: 1px solid #66667e;
+	width: 160px;
 }
 
 
 .health {
 	border: 1px solid black;
-	width: 150px;
-	height: 5px;
+	width: 48px;
+	height: 2px;
 	margin: 0;
 	padding: 0;
+	margin-left: 19px;
+	margin-top: 6px;
 }
 
 .healthbar {
-	background: bisque;
 	height: 100%;
 	width: 0%;
 	transition: 1s width linear;
 }
 
 .battleView {
-	width: 300px;
-	height: 215px;
+	width: 160px;
+	height: 97px;
 	overflow: hidden;
 }
 
 .pokemonview {
-	font-size: 12px;
-	height: 100px;
-	width: 300px;
+	font-size: 9px;
+	height: 48px;
+	width: 160px;
 	overflow: hidden;
+	position: relative;
+}
+
+.pokemonview .status {
+	width: 77px;
+	height: 33px;
+	background: url(../../images/bg1.png);
+	position: absolute;
+	top: 0px;
+	left: 11px;
+	background-repeat: no-repeat;
+}
+.pokemonview .status p {
+	margin: 0;
+	margin-top: 3px;
+	margin-left: 3px;
 }
 
 .pokemonview.myself .status {
-	margin-left: 150px;
+	margin-left: 55px;
+	position: absolute;
+	top: auto;
+	left: auto;
+	right: 11px;
+	bottom: 3px;
+	background: url(../../images/bg2.png);
+	background-position: bottom right;
 }
 
 .pokemonview img {
-	width: 100px;
-	height: 100px;
-	float: left;
-	transition: 0.5s transform linear;
+	width: 48px;
+	height: 48px;
+	position: absolute;
+	left:8px;
+	top: 0px;
+	transition: 0.5s transform ar;
 }
 
 .pokemonview.opponent img {
-	float: right;
+	right: 8px;
+	top: 0px;
+	left: auto;
 }
 
 .pokemonview.blink img {

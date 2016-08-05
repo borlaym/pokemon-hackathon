@@ -19,13 +19,13 @@ let HealthBar = Backbone.View.extend({
 	setColor() {
 		const healthPercent = this.model.getHealthPercent();
 		if (healthPercent <= 20) {
-			this.el.querySelector('.healthbar').style.backgroundColor = 'red';
+			this.el.querySelector('.healthbar').style.backgroundColor = '#ca2b00';
 		}
 		else if (healthPercent <= 50) {
-			this.el.querySelector('.healthbar').style.backgroundColor = 'yellow';
+			this.el.querySelector('.healthbar').style.backgroundColor = '#f89000';
 		}
 		else {
-			this.el.querySelector('.healthbar').style.backgroundColor = 'green';
+			this.el.querySelector('.healthbar').style.backgroundColor = '#00f800';
 		}
 	}
 });
