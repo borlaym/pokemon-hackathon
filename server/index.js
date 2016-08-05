@@ -9,13 +9,14 @@ let rooms = [];
 
 io.on('connection', function(socket){
   if (waitingPlayer) {
-		let newRoom = {
-			id: Math.floor(Math.random() * 900000),
-			players: [socket, waitingPlayer]
-		};
-		rooms.push(newRoom);
+		let id = Math.floor(Math.random() * 900000);
+		socket.join(id);
+		waitingPlayer.join(id);
+		rooms.push(id);
 		waitingPlayer = null;
 		console.log('created new room');
+		console.log(rooms);
+		io.to(id).emit('Gamestart', {});
 	} else {
 		waitingPlayer = socket;
 		console.log('waiting for other player');
