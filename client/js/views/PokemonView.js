@@ -8,7 +8,7 @@ let PokemonView = Backbone.View.extend({
 	template: _.template('<h1><%= name %></h1><img src="<% if (which === "opponent") { print("images/rattata-color.png")  } else  { print("images/rattata-back.png") } %>">'),
 	initialize(which) {
 		this.model = new Backbone.Model({
-			name: 'HELLO',
+			name: 'Nem Pidzsi',
 			health: 10,
 			which: which
 		});

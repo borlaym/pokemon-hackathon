@@ -9,7 +9,6 @@ let HealthBar = Backbone.View.extend({
 	},
 
 	render() {
-		console.log("nye")
 		this.$el.html('<div class="healthbar" style="width:' + this.model.get('health') + '%"</div>');
 		return this.$el;
 	},

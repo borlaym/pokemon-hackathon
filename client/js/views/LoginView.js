@@ -14,8 +14,8 @@ let LoginView = Backbone.View.extend({
 	render() {
 		//this.$el.html('<form><input type="text"><button type="submit">Search for opponent</button></form>');
 
-		//this.$el.append(new PokemonView('opponent').render())
-		//this.$el.append(new PokemonView('player').render())
+		this.$el.append(new PokemonView('opponent').render())
+		this.$el.append(new PokemonView('player').render())
 
 		this.$el.append(new TextView("Gyonyoru!!444Pikémon!").render())
 		
