@@ -1,5 +1,11 @@
 import io from 'socket.io-client';
-import Backbone from 'backbone';
+import LoginView from './views/LoginView.js';
+console.log(LoginView);
+import $ from 'jquery';
+
+let loginView = new LoginView();
+
+$('.main').html(loginView.render());
 
 let connection = io('http://localhost:3001');
 
