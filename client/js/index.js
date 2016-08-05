@@ -1,7 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import App from './containers/App';
-
 import io from 'socket.io-client';
 
 let connection = io('http://localhost:3001');
@@ -20,5 +16,3 @@ connection.on('Game start', () => {
 connection.on('returnMsg', (msg) => {
 	alert(msg);
 })
-
-ReactDOM.render(<App />, document.getElementById('main'));
