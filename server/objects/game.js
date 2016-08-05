@@ -1,6 +1,7 @@
 'use strict';
 
 const Moves = require('./moves.js');
+const _ = require('underscore');
 
 class Game {
 	constructor(players) {
@@ -41,33 +42,42 @@ class Game {
 		}
 	}
 	createEventsFromCommand(command) {
-		const actingPokemon = command.player.getActivePokemon();
+		const actingPlayer = this.players.find(player => player.socket === command.player.socket);
+		const opposingPlayer = this.players.find(player => player.socket !== command.player.socket);
+		const actingPokemon = actingPlayer.getActivePokemon();
+		const opposingPokemon = opposingPlayer.getActivePokemon();
+		let events = [];
 		if (actingPokemon.getCurrentHP() < 1) {
-			return {
-				type: 'POKEMON_FAINTED',
-				pokemon: actingPokemon.name,
-				trainer: command.player.socket.id
-			};
+			return [];
 		}
 
 		switch (command.type) {
 			case 'ATTACK':
 				const attackingPokemon = actingPokemon;
-				const defendingPokemon = this.players.filter(player => player.socket !== command.player.socket)[0].getActivePokemon();
+				const defendingPokemon = opposingPokemon;
 				const move = Moves[command.move]
 				const ATK = attackingPokemon.getATK();
 				const DEF = defendingPokemon.getDEF();
 				const baseDamage = (110/250) * (ATK/DEF) * move.power + 2;
 				const finalDamage = Math.floor(baseDamage);
 				defendingPokemon.decreaseHP(finalDamage);
-				return {
+				events.push({
 					type: 'POKEMON_USED_MOVE',
 					pokemon: attackingPokemon.name,
 					move: move.name,
 					superEffective: false,
-					trainer: command.player.socket.id
-				};
+					trainer: actingPlayer.socket.id
+				});
+				if (defendingPokemon.getCurrentHP() < 1) {
+					events.push({
+						type: 'POKEMON_FAINTED',
+						pokemon: defendingPokemon.name,
+						trainer: opposingPlayer.socket.id
+					});
+				}
 		}
+
+		return events;
 	}
 	resolveCommands() {
 		let events = []; // This will be the event queue sent to all clients
@@ -83,6 +93,7 @@ class Game {
 			return SPDB - SPDA;
 		});
 		events = events.concat(attackCommands.map(event => this.createEventsFromCommand(event)));
+		events = _.flatten(events);
 		this.broadcast('roundEnd', {
 			events,
 			players: this.players.map(player => player.serialize())
