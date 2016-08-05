@@ -10,11 +10,13 @@ let BattleView = Backbone.View.extend({
 		const myself = options.gameController.getMyself();
 		this.opponentView = new PokemonView({
 			model: opponent.get('pokemon').at(opponent.get('currentPokemon')),
-			player: 'opponent'
+			side: 'opponent',
+			player: opponent
 		});
 		this.myselfView = new PokemonView({
 			model: myself.get('pokemon').at(myself.get('currentPokemon')),
-			player: 'myself'
+			side: 'myself',
+			player: myself
 		});
 	},
 	render() {

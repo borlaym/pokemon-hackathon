@@ -33,12 +33,17 @@ let ViewActionController = {
 		})
 	},
 	callBackPokemon(action) {
-		console.log("Calling back pokemon");
-		EventBus.trigger('finishedAction');
+		this.faintPokemon(action);
 	},
 	summonPokemon(action) {
-		console.log("Summoning pokemon");
-		EventBus.trigger('finishedAction');
+		console.log(action);
+		const newPokemon = action.trainer.get('pokemon').find(pokemon => pokemon.get('name') === action.newPokemon);
+		const newIndex = action.trainer.get('pokemon').indexOf(newPokemon);
+		console.log(newPokemon.get('name'), newIndex);
+		action.trainer.set('currentPokemon', newIndex);
+		setTimeout(() => {
+			EventBus.trigger('finishedAction');
+		}, 800);
 	}
 }
 

@@ -5,12 +5,15 @@ import _ from 'underscore';
 
 let GameController = {
 	initialize() {
-		EventBus.on('gameStart', this.setGameState.bind(this));
+		EventBus.on('gameStart', this.gameStart.bind(this));
 		EventBus.on('roundEnd', this.resolveEvents.bind(this));
 		EventBus.on('myId', (id) => {
 			this.myId = id;
 		});
 		return this;
+	},
+	gameStart(gameState) {
+		this.setGameState(gameState);
 	},
 	setGameState(gameState) {
 		if (!this.players) {
@@ -78,15 +81,16 @@ let GameController = {
 				});
 				viewActions.push({
 					type: 'CALL_BACK_POKEMON',
-					trainer: event.trainer
+					trainer: this.getTrainer(event.trainer)
 				});
 				viewActions.push({
 					type: 'SHOW_TEXT',
-					text: 'Go ' + event.newPokemon
+					text: 'Go ' + event.newPokemon + '!'
 				});
 				viewActions.push({
 					type: 'SUMMON_POKEMON',
-					trainer: event.trainer
+					trainer: this.getTrainer(event.trainer),
+					newPokemon: event.newPokemon
 				});
 				break;
 		}

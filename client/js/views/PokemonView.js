@@ -5,9 +5,16 @@ import HealthBar from './HealthBar';
 
 let PokemonView = Backbone.View.extend({
 	className: 'pokemonview',
-	template: _.template('<img src="<% if (player === "opponent") { print(frontImage)  } else  { print(backImage) } %>"><div class="status"><p><%= name %></p></div>'),
+	template: _.template('<img src="<% if (side === "opponent") { print(frontImage)  } else  { print(backImage) } %>"><div class="status"><p><%= name %></p></div>'),
 	initialize(options) {
+		this.side = options.side;
 		this.player = options.player;
+		this.player.on('change:currentPokemon', () => {
+			this.changeModel(this.player.getActivePokemon());
+		});
+		this.bindModelEvents();
+	},
+	bindModelEvents() {
 		this.model.on('change:currentHP', () => {
 			this.$el.addClass('blink');
 			window.setTimeout(() => {
@@ -16,20 +23,36 @@ let PokemonView = Backbone.View.extend({
 		});
 		this.model.on('faint', () => {
 			this.$el.addClass('fainted');
-		})
+		});
+	},
+	unbindModelEvents() {
+		this.model.off('change faint summon');
+	},
+	changeModel(model) {
+		console.log('changed model to', model.get('name'));
+		this.unbindModelEvents();
+		this.model = model;
+		this.bindModelEvents();
+		this.render();
 	},
 	render() {
+		if (this.healthbar) {
+			this.healthbar.remove();
+		}
 		const model = _.extend({},
 			this.model.toJSON(),
 			{
-				player: this.player,
+				side: this.side,
 				frontImage: this.model.getFrontImageSrc(),
 				backImage: this.model.getBackImageSrc()
 		});
 		this.$el.html(this.template(model));
-		this.el.classList.add(this.player);
+		this.$el.addClass(this.side + ' fainted');
 		this.healthbar = new HealthBar({model: this.model});
 		this.$('.status').append(this.healthbar.render())
+		setTimeout(() => {
+			this.$el.removeClass('fainted');
+		}, 100);
 		return this.$el;
 	}
 });

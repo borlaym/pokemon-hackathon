@@ -46,7 +46,7 @@ html {
 	width: 100px;
 	height: 100px;
 	float: left;
-	transition: 0.5s transform;
+	transition: 0.5s transform linear;
 }
 
 .pokemonview.opponent img {
