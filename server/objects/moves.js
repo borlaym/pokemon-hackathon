@@ -1,6 +1,8 @@
-import { GRASS, FIRE, WATER, NORMAL, FLYING } from './types.js'
+'use strict';
 
-export class Move {
+let Types = require('./types.js');
+
+class Move {
 	constructor(name, type, damage, accuracy) {
 		this.name = name;
 		this.type = type;
@@ -9,8 +11,12 @@ export class Move {
 	}
 }
 
-export class Tackle extends Move {
+class Tackle extends Move {
 	constructor() {
-		this.super('TACKLE', NORMAL, 40, 1);
+		this.super('TACKLE', Types.NORMAL, 40, 1);
 	}
+}
+
+module.exports = {
+	TACKLE: Tackle
 }

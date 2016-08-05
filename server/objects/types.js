@@ -1,6 +1,8 @@
-export const GRASS = 'GRASS';
-export const FIRE = 'FIRE';
-export const WATER = 'WATER';
-export const NORMAL = 'NORMAL';
-export const FLYING = 'FLYING';
-export const ELECTRIC = 'ELECTRIC';
+module.exports = {
+	GRASS : 'GRASS',
+	FIRE : 'FIRE',
+	WATER : 'WATER',
+	NORMAL : 'NORMAL',
+	FLYING : 'FLYING',
+	ELECTRIC : 'ELECTRIC'
+};

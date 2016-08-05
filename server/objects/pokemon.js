@@ -1,7 +1,9 @@
-import { GRASS, FIRE, WATER, NORMAL, FLYING, ELECTRIC } from './types.js'
-import { TACKLE } from './moves.js';
+'use strict';
 
-export class Pokemon {
+let Types = require('./types.js');
+let Moves = require('./moves.js');
+
+class Pokemon {
 	constructor(name, type, ATK, DEF, HP, SPATK, SPDEF, SPD, moves) {
 		this.name = name;
 		this.attributes = {
@@ -9,40 +11,56 @@ export class Pokemon {
 		};
 		this.moves = moves;
 	}
-}
-
-export class Bulbasaur extends Pokemon {
-	constructor() {
-		super.constructor('BULBASAUR', GRASS, 49, 49, 45, 65, 65, 45, [TACKLE])
+	serialize() {
+		return {
+			name: this.name,
+			type: this.type,
+			moves: this.moves
+		}
 	}
 }
 
-export class Charmander extends Pokemon {
+class Bulbasaur extends Pokemon {
 	constructor() {
-		super.constructor('CHARMANDER', FIRE, 52, 43, 39, 60, 50, 65, [TACKLE])
+		super.constructor('BULBASAUR', Types.GRASS, 49, 49, 45, 65, 65, 45, [Moves.TACKLE])
 	}
 }
 
-export class Squirtle extends Pokemon {
+class Charmander extends Pokemon {
 	constructor() {
-		super.constructor('SQUIRTLE', WATER, 48, 65, 44, 50, 64, 43, [TACKLE])
+		super.constructor('CHARMANDER', Types.FIRE, 52, 43, 39, 60, 50, 65, [Moves.TACKLE])
 	}
 }
 
-export class Pikachu extends Pokemon {
+class Squirtle extends Pokemon {
 	constructor() {
-		super.constructor('PIKACHU', ELECTRIC, 55, 40, 35, 50, 50, 90, [TACKLE])
+		super.constructor('SQUIRTLE', Types.WATER, 48, 65, 44, 50, 64, 43, [Moves.TACKLE])
 	}
 }
 
-export class Rattata extends Pokemon {
+class Pikachu extends Pokemon {
 	constructor() {
-		super.constructor('RATTATA', NORMAL, 56, 35, 30, 25, 35, 72, [TACKLE])
+		super.constructor('PIKACHU', Types.ELECTRIC, 55, 40, 35, 50, 50, 90, [Moves.TACKLE])
 	}
 }
 
-export class Pidgey extends Pokemon {
+class Rattata extends Pokemon {
 	constructor() {
-		super.constructor('PIDGEY', FLYING, 45, 40, 40, 35, 35, 56, [TACKLE])
+		super.constructor('RATTATA', Types.NORMAL, 56, 35, 30, 25, 35, 72, [Moves.TACKLE])
 	}
+}
+
+class Pidgey extends Pokemon {
+	constructor() {
+		super.constructor('PIDGEY', FLYING, 45, 40, 40, 35, 35, 56, [Moves.TACKLE])
+	}
+}
+
+module.exports = {
+	Bulbasaur,
+	Charmander,
+	Squirtle,
+	Pikachu,
+	Rattata,
+	Pidgey
 }
