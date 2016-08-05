@@ -10,6 +10,7 @@ let GameController = {
 		EventBus.on('myId', (id) => {
 			this.myId = id;
 		});
+		return this;
 	},
 	setGameState(gameState) {
 		if (!this.players) {

@@ -3,7 +3,7 @@ import ServerController from './controllers/serverController.js';
 import GameController from './controllers/gameController.js';
 import ViewActionController from './controllers/viewActionController.js';
 
-ViewController.start();
 ServerController.initialize();
-GameController.initialize();
+let gameController = GameController.initialize();
 ViewActionController.initialize();
+ViewController.start(gameController);

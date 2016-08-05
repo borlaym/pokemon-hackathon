@@ -1,16 +1,18 @@
 import LoginView from '../views/LoginView.js';
-import ActionView from '../views/ActionView.js';
+import GameView from '../views/GameView.js';
 import EventBus from '../eventBus.js';
 import $ from 'jquery';
 
 let ViewController = {
-	start() {
+	start(gameController) {
 		let loginView = new LoginView();
 		this.renderView(loginView);
 
 		EventBus.on('gameStart', () => {
-			let actionView = new ActionView();
-			this.renderView(actionView);
+			let gameView = new GameView({
+				gameController
+			});
+			this.renderView(gameView);
 		})
 	},
 	renderView(view) {
