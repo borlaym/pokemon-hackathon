@@ -13,6 +13,9 @@ let PokemonView = Backbone.View.extend({
 			window.setTimeout(() => {
 				this.$el.removeClass('blink');
 			}, 1000);
+		});
+		this.model.on('faint', () => {
+			this.$el.addClass('fainted');
 		})
 	},
 	render() {

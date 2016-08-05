@@ -4,6 +4,7 @@ import PokemonView from './PokemonView.js';
 import GameController from '../controllers/GameController.js';
 
 let BattleView = Backbone.View.extend({
+	className: 'battleView',
 	initialize(options) {
 		const opponent = options.gameController.getOpponent();
 		const myself = options.gameController.getMyself();

@@ -64,7 +64,7 @@ let GameController = {
 			case 'POKEMON_FAINTED':
 				viewActions.push({
 					type: 'FAINT_POKEMON',
-					trainer: this.getOpponentOf(event.trainer)
+					trainer: this.getTrainer(event.trainer)
 				})
 				viewActions.push({
 					type: 'SHOW_TEXT',
@@ -100,6 +100,9 @@ let GameController = {
 	},
 	getOpponentOf(id) {
 		return this.players.find(player => player.get('id') !== id);
+	},
+	getTrainer(id) {
+		return this.players.find(player => player.get('id') === id);
 	}
 }
 

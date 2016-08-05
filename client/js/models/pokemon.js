@@ -17,6 +17,10 @@ let PokemonModel = Backbone.Model.extend({
 			newHP = 0;
 		}
 		this.set('currentHP', newHP);
+	},
+	faint(callback) {
+		this.trigger('faint');
+		setTimeout(callback, 700);
 	}
 });
 

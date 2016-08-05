@@ -27,8 +27,10 @@ let ViewActionController = {
 		}, 1000);
 	},
 	faintPokemon(action) {
-		console.log("Fainting pokemon");
-		EventBus.trigger('finishedAction');
+		let pokemon = action.trainer.getActivePokemon();
+		pokemon.faint(() => {
+			EventBus.trigger('finishedAction');
+		})
 	},
 	callBackPokemon(action) {
 		console.log("Calling back pokemon");
