@@ -27,8 +27,8 @@ let GameController = {
 		viewActions = _.flatten(viewActions);
 		let asyncFunctions = viewActions.map(viewAction => {
 			return (callback) => {
-				EventBus.trigger('viewAction:' + viewAction.type, viewAction);
 				EventBus.once('finishedAction', callback)
+				EventBus.trigger('viewAction:' + viewAction.type, viewAction);
 			};
 		});
 		series(asyncFunctions, () => {
@@ -39,39 +39,47 @@ let GameController = {
 	// Create view actions from events
 	createViewActions(event) {
 		let viewActions = [];
+		const opposing = event.trainer === this.getMyself().get('id') ? "" : "Opposing ";
 		switch (event.type) {
 			case 'POKEMON_USED_MOVE':
 				viewActions.push({
 					type: 'SHOW_TEXT',
-					text: event.pokemon + ' used ' + event.move + '!'
+					text: opposing + event.pokemon + ' used ' + event.move + '!',
+					trainer: event.trainer
 				});
 				viewActions.push({
-					type: 'BLINK_POKEMON'
+					type: 'BLINK_POKEMON',
+					trainer: this.getOpponentOf(event.trainer)
 				});
 				if (event.superEffective) {
 					viewActions.push({
 						type: 'SHOW_TEXT',
-						text: 'It\'s super effective!'
+						text: 'It\'s super effective!',
+						trainer: event.trainer
 					})
 				}
 				break;
 			case 'POKEMON_FAINTED':
 				viewActions.push({
-					type: 'FAINT_POKEMON'
+					type: 'FAINT_POKEMON',
+					trainer: this.getOpponentOf(event.trainer)
 				})
 				viewActions.push({
 					type: 'SHOW_TEXT',
-					text: event.pokemon + ' fainted!'
+					text: opposing + event.pokemon + ' fainted!'
 				})
 				break;
 		}
 		return viewActions;
 	},
 	getOpponent() {
-		this.players.find(player => player.get('id') !== this.myId);
+		return this.players.find(player => player.get('id') !== this.myId);
 	},
 	getMyself() {
-		this.players.find(player => player.get('id') === this.myId);
+		return this.players.find(player => player.get('id') === this.myId);
+	},
+	getOpponentOf(id) {
+		return this.players.find(player => player.get('id') !== id);
 	}
 }
 
