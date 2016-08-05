@@ -8,7 +8,8 @@ let ActionView = Backbone.View.extend({
 	},
 	onAttack() {
 		EventBus.trigger('command', {
-			type: 'ATTACK'
+			type: 'ATTACK',
+			move: 'TACKLE'
 		});
 	},
 	onChangePokemon() {

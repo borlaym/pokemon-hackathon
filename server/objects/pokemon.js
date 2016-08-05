@@ -26,6 +26,12 @@ class Pokemon {
 	getCurrentHP() {
 		return this.variables.HP;
 	}
+	decreaseHP(amount) {
+		this.variables.HP -= amount;
+		if (this.variables.HP < 0) {
+			this.variables.HP = 0;
+		}
+	}
 	serialize() {
 		return {
 			name: this.name,
