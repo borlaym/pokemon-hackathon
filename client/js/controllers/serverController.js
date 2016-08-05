@@ -12,11 +12,10 @@ let ServerController = {
 		this.connection = io('http://localhost:3001');
 		this.connection.emit('addName', userName);
 		Object.keys(this.events).forEach(key => {
-			this.connection.on(key, this.events[key].bind(this))
+			this.connection.on(key, this[this.events[key]].bind(this))
 		});
 	},
 	gameStart() {
-		alert(1);
 	}
 }
 

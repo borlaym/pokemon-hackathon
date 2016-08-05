@@ -2,8 +2,13 @@
 
 module.exports =  class Player {
 	constructor(socket) {
+		this.events = {
+			addName: 'addName'
+		};
 		this.socket = socket;
-		this.socket.on('addName', name => this.name = name);
+		Object.keys(this.events).forEach(key => {
+			this.socket.on(key, this[this.events[key]].bind(this));
+		});
 	}
 	addName(name) {
 		this.name = name;

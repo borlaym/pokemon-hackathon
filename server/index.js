@@ -13,16 +13,16 @@ let Player = require('./objects/player.js');
 io.on('connection', function(socket){
 	let newPlayer = new Player(socket);
   if (waitingPlayer) {
-		let newGame = new Game([waitingPlayer, socket]);
+		let newGame = new Game([waitingPlayer, newPlayer]);
 		games.push(newGame);
 		waitingPlayer = null;
 		console.log('created new room');
 	} else {
-		waitingPlayer = socket;
+		waitingPlayer = newPlayer;
 		console.log('waiting for other player');
 	}
 	socket.on('disconnect', () => {
-		if (waitingPlayer === socket) {
+		if (waitingPlayer === newPlayer) {
 			waitingPlayer = null;
 		}
 	})

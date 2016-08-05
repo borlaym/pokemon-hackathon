@@ -6,7 +6,7 @@ let LoginView = Backbone.View.extend({
 	},
 	onSubmit(event) {
 		event.preventDefault();
-		eventBus.trigger('connect', this.$('input').val());
+		EventBus.trigger('connect', this.$('input').val());
 	},
 	render() {
 		this.$el.html('<form><input type="text"><button type="submit">Search for opponent</button></form>');
