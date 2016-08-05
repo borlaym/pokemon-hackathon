@@ -6,7 +6,10 @@ let resolver = {
 	'papirko': 0,
 	'papirollo': 1,
 	'ollopapir': 0,
-	'olloko': 1
+	'olloko': 1,
+	'koko': 2,
+	'olloollo': 2,
+	'papirpapir': 2
 };
 
 class Game {
@@ -48,10 +51,20 @@ class Game {
 		}
 	}
 	resolveActions() {
-		let winner = resolver[this.actions.map(action => action.type).join()];
-		winner = actions[winner].serialize();
+		console.log(this.actions);
+		const match = this.actions.map(action => action.type).join('')
+		console.log('"' + match + '"');
+		let winner = resolver[match];
+		console.log('Winner: ', winner);
+		winner = this.actions[winner].player.serialize();
+		console.log('Winningplayer:' + winner.name);
 		this.broadcast('roundEnd', {
-			actions: this.actions,
+			actions: this.actions.map(action => {
+				return {
+					player: action.player.serialize(),
+					type: action.type
+				}
+			}),
 			winner
 		});
 		this.actions = [];
