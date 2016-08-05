@@ -11,7 +11,6 @@ let PokemonModel = Backbone.Model.extend({
 		return 'images/' + this.get('name').toLowerCase() + '-back.png';
 	},
 	decreaseHP(amount) {
-		console.log('damage', amount);
 		var currentHP = this.get('currentHP');
 		var newHP = currentHP - amount;
 		if (newHP < 0) {
