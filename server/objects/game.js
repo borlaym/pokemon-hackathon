@@ -1,30 +1,18 @@
 'use strict';
 
-let resolver = {
-	'kopapir': 1,
-	'koollo': 0,
-	'papirko': 0,
-	'papirollo': 1,
-	'ollopapir': 0,
-	'olloko': 1,
-	'koko': 2,
-	'olloollo': 2,
-	'papirpapir': 2
-};
-
 class Game {
 	constructor(players) {
 		this.id = Math.floor(Math.random() * 900000);
 		this.players = players;
 		this.players.map(player => player.socket).forEach(socket => socket.join(this.id));
 		this.events = {
-			'action': 'onAction'
+			'command': 'onCommand'
 		};
 		Object.keys(this.events).forEach(key => {
 			this.on(key, this[this.events[key]].bind(this));
 		});
 		this.broadcast('gameStart');
-		this.actions = [];
+		this.commands = [];
 	}
 	broadcast(name, payload) {
 		this.players.map(player => player.socket).forEach(socket => socket.emit(name, payload));
@@ -41,33 +29,36 @@ class Game {
 			players: this.players.map(player => player.serialize())
 		}
 	}
-	onAction(type, player) {
-		this.actions.push({
-			player,
-			type
-		});
-		if (this.actions.length === 2) {
-			this.resolveActions();
+	onCommand(payload, player) {
+		this.commands.push(Object.assign({}, payload, {
+			player
+		}));
+		if (this.commands.length === 2) {
+			this.resolveCommands();
 		}
 	}
-	resolveActions() {
-		console.log(this.actions);
-		const match = this.actions.map(action => action.type).join('')
-		console.log('"' + match + '"');
-		let winner = resolver[match];
-		console.log('Winner: ', winner);
-		winner = this.actions[winner].player.serialize();
-		console.log('Winningplayer:' + winner.name);
-		this.broadcast('roundEnd', {
-			actions: this.actions.map(action => {
-				return {
-					player: action.player.serialize(),
-					type: action.type
-				}
-			}),
-			winner
+	createEventsFromCommand(command) {
+
+	}
+	resolveCommands() {
+		let events = []; // This will be the event queue sent to all clients
+		// First come all pokemon change events
+		const changePokemonCommands = this.commands.filter(command => command.type === 'CHANGE_POKEMON');
+		events = events.concat(changePokemonCommands.map(event => createEventsFromCommand(event)));
+		// Then resolve attack events on order of SPD of the active pokemon
+		let attackCommands = this.commands.filter(command => command.type === 'ATTACK');
+		attackCommands = attackCommands.sort((commandA, commandB) => {
+			// Get the SPD of the active pokemon of the player giving the command
+			const SPDA = commandA.player.getActivePokemon().getSPD();
+			const SPDB = commandB.player.getActivePokemon().getSPD();
+			return SPDB - SPDA;
 		});
-		this.actions = [];
+		events = events.concat(attackEvents.map(event => createEventsFromCommand(event)));
+		this.broadcast('roundEnd', {
+			events,
+			players: this.players.map(player => player.serialize())
+		})
+		this.commands = [];
 	}
 }
 

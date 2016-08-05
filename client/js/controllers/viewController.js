@@ -1,5 +1,5 @@
 import LoginView from '../views/LoginView.js';
-import KoPapirOlloView from '../views/KoPapirOlloView.js';
+import ActionView from '../views/ActionView.js';
 import EventBus from '../eventBus.js';
 import $ from 'jquery';
 
@@ -9,8 +9,8 @@ let ViewController = {
 		this.renderView(loginView);
 
 		EventBus.on('gameStart', () => {
-			let koPapirOlloView = new KoPapirOlloView();
-			this.renderView(koPapirOlloView);
+			let actionView = new ActionView();
+			this.renderView(actionView);
 		})
 	},
 	renderView(view) {
