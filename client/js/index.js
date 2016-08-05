@@ -7,7 +7,6 @@ import io from 'socket.io-client';
 let socket = io('http://localhost:3001');
 
 socket.on('connect', (socket) => {
-	alert(111)
 });
 
 ReactDOM.render(<App />, document.getElementById('main'));
