@@ -25,6 +25,10 @@ html {
 	transition: 1s width;
 }
 
+.pokemonview {
+	font-size: 12px;
+}
+
 .pokemonview img {
 	width: 200px;
 	height: 200px;
@@ -72,4 +76,3 @@ html {
 
 }
 @font-face {font-family:"pixelfont";src:url("Pokemon GB.ttf") format("truetype");font-style:normal;}
-

@@ -9,20 +9,25 @@ let HealthBar = Backbone.View.extend({
 	},
 
 	render() {
-		this.$el.html('<div class="healthbar" style="width:' + this.model.get('health') + '%"</div>');
+		this.$el.html('<div class="healthbar" style="width:' + this.model.getHealthPercent() + '%"</div>');
+		this.setColor();
 		return this.$el;
 	},
 	updateHealth() {
-		const health = this.model.get('health');
-		this.el.querySelector('.healthbar').style.width = Math.max(Math.min(health, 100), 0) + "%";
-
-		if (health <= 20) {
+		const healthPercent = this.model.getHealthPercent();
+		this.el.querySelector('.healthbar').style.width = healthPercent + "%";
+		this.setColor();
+	},
+	setColor() {
+		const healthPercent = this.model.getHealthPercent();
+		console.log(healthPercent);
+		if (healthPercent <= 20) {
 			this.el.querySelector('.healthbar').style.backgroundColor = 'red';
 		}
-		else if (health <= 50) {
+		else if (healthPercent <= 50) {
 			this.el.querySelector('.healthbar').style.backgroundColor = 'yellow';
 		}
-		else if (health <= 100) {
+		else {
 			this.el.querySelector('.healthbar').style.backgroundColor = 'green';
 		}
 	}
