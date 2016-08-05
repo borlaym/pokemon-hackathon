@@ -20,7 +20,6 @@ let HealthBar = Backbone.View.extend({
 	},
 	setColor() {
 		const healthPercent = this.model.getHealthPercent();
-		console.log(healthPercent);
 		if (healthPercent <= 20) {
 			this.el.querySelector('.healthbar').style.backgroundColor = 'red';
 		}

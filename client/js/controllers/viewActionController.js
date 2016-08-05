@@ -15,8 +15,9 @@ let ViewActionController = {
 		EventBus.on('viewAction:SUMMON_POKEMON', this.summonPokemon.bind(this));
 	},
 	showText(action) {
-		console.log(action.text);
-		EventBus.trigger('finishedAction');
+		ViewController.showText(action, () => {
+			EventBus.trigger('finishedAction');
+		});
 	},
 	blinkPokemon(action) {
 		console.log("Blinking pokemon");

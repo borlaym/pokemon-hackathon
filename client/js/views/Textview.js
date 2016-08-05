@@ -4,9 +4,8 @@ import Backbone from 'backbone';
 let TextView = Backbone.View.extend({
 	tagName: 'p',
 	className: 'textview',
-	initialize(text) {
-		this.text = text;
-
+	initialize(options) {
+		this.text = options.text;
 	},
 	render() {
 
@@ -16,13 +15,16 @@ let TextView = Backbone.View.extend({
 			this.el.innerHTML += this.text[currentStep]
 			currentStep += 1;
 			if (currentStep < this.text.length) {
-				window.requestAnimationFrame(step.bind(this));
+				window.setTimeout(step.bind(this), 50);
+			} else {
+				window.setTimeout(() => {
+					this.trigger('finished');
+				}, 1000);
 			}
 		}
 
-		window.requestAnimationFrame(step.bind(this));
+		window.setTimeout(step.bind(this), 50);
 
-		//this.$el.html(this.text);
 		return this.$el;
 	}
 });
