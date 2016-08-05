@@ -43,7 +43,7 @@ let GameController = {
 	// Create view actions from events
 	createViewActions(event) {
 		let viewActions = [];
-		const opposing = event.trainer === this.getMyself().get('id') ? "" : "Opposing ";
+		const opposing = event.trainer === this.getMyself().get('id') ? "" : "Enemy ";
 		switch (event.type) {
 			case 'POKEMON_USED_MOVE':
 				viewActions.push({
@@ -77,7 +77,7 @@ let GameController = {
 			case 'CHANGED_POKEMON':
 				viewActions.push({
 					type: 'SHOW_TEXT',
-					text: event.previousPokemon + ', enough!'
+					text: event.previousPokemon + ', enough! Come back!'
 				});
 				viewActions.push({
 					type: 'CALL_BACK_POKEMON',
@@ -85,7 +85,7 @@ let GameController = {
 				});
 				viewActions.push({
 					type: 'SHOW_TEXT',
-					text: 'Go ' + event.newPokemon + '!'
+					text: 'Go! ' + event.newPokemon + '!'
 				});
 				viewActions.push({
 					type: 'SUMMON_POKEMON',

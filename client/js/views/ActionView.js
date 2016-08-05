@@ -18,7 +18,7 @@ let ActionView = Backbone.View.extend({
 		this.$el.append(selectorView.render());
 	},
 	render() {
-		this.$el.html('<button class="attack">ATTACK</button>' + '<button class="changePokemon">PKMN</button>');
+		this.$el.html('<button class="attack">FIGHT</button>' + '<button class="changePokemon">PKMN</button>');
 		return this.$el;
 	}
 });

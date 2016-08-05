@@ -14,7 +14,12 @@ let ViewController = {
 				gameController
 			});
 			this.renderView(gameView);
-		})
+		});
+		EventBus.on('command', () => {
+			this.showText({
+				text: 'Waiting for opponent...'
+			}, () => null, false)
+		});
 	},
 	renderView(view) {
 		if (this.view) {
@@ -23,11 +28,17 @@ let ViewController = {
 		this.view = view;
 		$('.main').html(this.view.render());
 	},
-	showText(action, callback) {
+	showText(action, callback, shouldHideOnComplete = true) {
+		if (this.textView) {
+			this.textView.remove();
+		}
 		this.textView = new TextView({
 			text: action.text
 		});
 		this.textView.on('finished', () => {
+			if (!shouldHideOnComplete) {
+				return;
+			}
 			this.textView.remove();
 			this.textView = null;
 			callback();
