@@ -43,10 +43,10 @@ class Game {
 	createEventsFromCommand(command) {
 		const actingPokemon = command.player.getActivePokemon();
 		if (actingPokemon.getCurrentHP() < 1) {
-			return [{
+			return {
 				type: 'POKEMON_FAINTED',
 				pokemon: actingPokemon.name
-			}];
+			};
 		}
 
 		switch (command.type) {
@@ -59,12 +59,12 @@ class Game {
 				const baseDamage = (110/250) * (ATK/DEF) * move.power + 2;
 				const finalDamage = Math.floor(baseDamage);
 				defendingPokemon.decreaseHP(finalDamage);
-				return [{
+				return {
 					type: 'POKEMON_USED_MOVE',
 					pokemon: attackingPokemon.name,
 					move: move.name,
 					superEffective: false
-				}];
+				};
 		}
 	}
 	resolveCommands() {
@@ -81,7 +81,6 @@ class Game {
 			return SPDB - SPDA;
 		});
 		events = events.concat(attackCommands.map(event => this.createEventsFromCommand(event)));
-		console.log(events);
 		this.broadcast('roundEnd', {
 			events,
 			players: this.players.map(player => player.serialize())

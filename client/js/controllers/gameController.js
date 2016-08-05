@@ -20,8 +20,10 @@ let GameController = {
 	},
 	// Resolve the events sent by the server
 	resolveEvents(data) {
-		let viewActions = data.events.map(event => this.createViewActions.bind(this));
+		console.log('data', data);
+		let viewActions = data.events.map(event => this.createViewActions(event));
 		viewActions = _.flatten(viewActions);
+		console.log('viewActions', viewActions);
 		let asyncFunctions = viewActions.map(viewAction => {
 			return (callback) => {
 				EventBus.trigger('viewAction:' + viewAction.type, viewAction);
@@ -35,9 +37,11 @@ let GameController = {
 	},
 	// Create view actions from events
 	createViewActions(event) {
+		console.log(event.type);
 		let viewActions = [];
 		switch (event.type) {
 			case 'POKEMON_USED_MOVE':
+				console.log('ITS A USE MOVE');
 				viewActions.push({
 					type: 'SHOW_TEXT',
 					text: event.pokemon + ' used ' + event.move + '!'
@@ -60,7 +64,7 @@ let GameController = {
 					type: 'SHOW_TEXT',
 					text: event.pokemon + ' fainted!'
 				})
-			default:
+				break;
 		}
 		return viewActions;
 	}

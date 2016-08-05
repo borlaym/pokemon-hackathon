@@ -22,7 +22,7 @@ let ServerController = {
 		EventBus.trigger('gameStart', gameState);
 	},
 	roundEnd(results) {
-		console.log(results);
+		EventBus.trigger('roundEnd', results);
 	}
 }
 

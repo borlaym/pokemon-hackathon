@@ -6,6 +6,7 @@ let Moves = require('./moves.js');
 class Pokemon {
 	constructor(name, type, ATK, DEF, HP, SPATK, SPDEF, SPD, moves) {
 		this.name = name;
+		this.type = type;
 		this.baseAttributes = {
 			ATK, DEF, HP, SPATK, SPDEF, SPD
 		};
@@ -36,7 +37,9 @@ class Pokemon {
 		return {
 			name: this.name,
 			type: this.type,
-			moves: this.moves
+			moves: this.moves,
+			currentHP: this.getCurrentHP(),
+			maxHP: this.baseAttributes.HP
 		}
 	}
 }
