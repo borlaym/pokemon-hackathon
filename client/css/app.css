@@ -22,7 +22,7 @@ html {
 	background: bisque;
 	height: 100%;
 	width: 0%;
-	transition: 1s width;
+	transition: 1s width linear;
 }
 
 .pokemonview {

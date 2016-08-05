@@ -3,9 +3,7 @@ import Backbone from 'backbone';
 let HealthBar = Backbone.View.extend({
 	className: 'health',
 	initialize() {
-		window._model = this.model;
-
-		this.listenTo(this.model, "change", this.updateHealth);
+		this.model.on('change:currentHP', this.updateHealth.bind(this));
 	},
 
 	render() {

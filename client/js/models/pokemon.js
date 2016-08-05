@@ -9,6 +9,15 @@ let PokemonModel = Backbone.Model.extend({
 	},
 	getBackImageSrc() {
 		return 'images/' + this.get('name').toLowerCase() + '-back.png';
+	},
+	decreaseHP(amount) {
+		console.log('damage', amount);
+		var currentHP = this.get('currentHP');
+		var newHP = currentHP - amount;
+		if (newHP < 0) {
+			newHP = 0;
+		}
+		this.set('currentHP', newHP);
 	}
 });
 

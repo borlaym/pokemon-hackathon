@@ -5,5 +5,5 @@ import ViewActionController from './controllers/viewActionController.js';
 
 ServerController.initialize();
 let gameController = GameController.initialize();
-ViewActionController.initialize();
+ViewActionController.initialize(gameController);
 ViewController.start(gameController);

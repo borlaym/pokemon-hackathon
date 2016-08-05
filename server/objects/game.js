@@ -64,6 +64,7 @@ class Game {
 				events.push({
 					type: 'POKEMON_USED_MOVE',
 					pokemon: attackingPokemon.name,
+					damage: finalDamage,
 					move: move.name,
 					superEffective: false,
 					trainer: actingPlayer.socket.id

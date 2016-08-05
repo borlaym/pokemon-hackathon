@@ -18,6 +18,9 @@ let PlayerModel = Backbone.Model.extend({
 			name: values.name
 		});
 		this.get('pokemon').set(values.pokemon);
+	},
+	getActivePokemon() {
+		return this.get('pokemon').at(this.get('currentPokemon'));
 	}
 });
 

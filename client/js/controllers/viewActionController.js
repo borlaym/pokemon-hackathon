@@ -1,13 +1,13 @@
 import EventBus from '../eventBus.js';
 import ViewController from './viewController.js';
-import GameController from './gameController.js';
 
 /**
  * Handle all view actions and redirect them to the proper controller/view
  * @type {Object}
  */
 let ViewActionController = {
-	initialize() {
+	initialize(gameController) {
+		this.gameController = gameController;
 		EventBus.on('viewAction:SHOW_TEXT', this.showText.bind(this));
 		EventBus.on('viewAction:BLINK_POKEMON', this.blinkPokemon.bind(this));
 		EventBus.on('viewAction:FAINT_POKEMON', this.faintPokemon.bind(this));
@@ -20,8 +20,11 @@ let ViewActionController = {
 		});
 	},
 	blinkPokemon(action) {
-		console.log("Blinking pokemon");
-		EventBus.trigger('finishedAction');
+		let pokemon = action.trainer.getActivePokemon();
+		pokemon.decreaseHP(action.damage);
+		setTimeout(() => {
+			EventBus.trigger('finishedAction');
+		}, 1000);
 	},
 	faintPokemon(action) {
 		console.log("Fainting pokemon");

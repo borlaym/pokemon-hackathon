@@ -50,7 +50,8 @@ let GameController = {
 				});
 				viewActions.push({
 					type: 'BLINK_POKEMON',
-					trainer: this.getOpponentOf(event.trainer)
+					trainer: this.getOpponentOf(event.trainer),
+					damage: event.damage
 				});
 				if (event.superEffective) {
 					viewActions.push({
