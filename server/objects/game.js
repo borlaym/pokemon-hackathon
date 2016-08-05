@@ -44,7 +44,7 @@ class Game {
 		const actingPokemon = command.player.getActivePokemon();
 		if (actingPokemon.getCurrentHP() < 1) {
 			return [{
-				type: 'POKEMON_FEINTED',
+				type: 'POKEMON_FAINTED',
 				pokemon: actingPokemon.name
 			}];
 		}
