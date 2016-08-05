@@ -69,6 +69,24 @@ let GameController = {
 					text: opposing + event.pokemon + ' fainted!'
 				})
 				break;
+			case 'CHANGED_POKEMON':
+				viewActions.push({
+					type: 'SHOW_TEXT',
+					text: event.previousPokemon + ', enough!'
+				});
+				viewActions.push({
+					type: 'CALL_BACK_POKEMON',
+					trainer: event.trainer
+				});
+				viewActions.push({
+					type: 'SHOW_TEXT',
+					text: 'Go ' + event.newPokemon
+				});
+				viewActions.push({
+					type: 'SUMMON_POKEMON',
+					trainer: event.trainer
+				});
+				break;
 		}
 		return viewActions;
 	},

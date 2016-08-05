@@ -11,6 +11,8 @@ let ViewActionController = {
 		EventBus.on('viewAction:SHOW_TEXT', this.showText.bind(this));
 		EventBus.on('viewAction:BLINK_POKEMON', this.blinkPokemon.bind(this));
 		EventBus.on('viewAction:FAINT_POKEMON', this.faintPokemon.bind(this));
+		EventBus.on('viewAction:CALL_BACK_POKEMON', this.callBackPokemon.bind(this));
+		EventBus.on('viewAction:SUMMON_POKEMON', this.summonPokemon.bind(this));
 	},
 	showText(action) {
 		console.log(action.text);
@@ -22,6 +24,14 @@ let ViewActionController = {
 	},
 	faintPokemon(action) {
 		console.log("Fainting pokemon");
+		EventBus.trigger('finishedAction');
+	},
+	callBackPokemon(action) {
+		console.log("Calling back pokemon");
+		EventBus.trigger('finishedAction');
+	},
+	summonPokemon(action) {
+		console.log("Summoning pokemon");
 		EventBus.trigger('finishedAction');
 	}
 }

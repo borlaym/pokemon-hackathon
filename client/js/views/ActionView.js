@@ -1,5 +1,6 @@
 import Backbone from 'backbone';
 import EventBus from '../eventBus.js';
+import PokemonSelectorView from './PokemonSelectorView.js';
 
 let ActionView = Backbone.View.extend({
 	events: {
@@ -13,9 +14,8 @@ let ActionView = Backbone.View.extend({
 		});
 	},
 	onChangePokemon() {
-		EventBus.trigger('command', {
-			type: "CHANGE_POKEMON"
-		});
+		let selectorView = new PokemonSelectorView();
+		this.$el.append(selectorView.render());
 	},
 	render() {
 		this.$el.html('<button class="attack">ATTACK</button>' + '<button class="changePokemon">PKMN</button>');

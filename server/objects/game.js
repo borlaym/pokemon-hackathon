@@ -47,12 +47,12 @@ class Game {
 		const actingPokemon = actingPlayer.getActivePokemon();
 		const opposingPokemon = opposingPlayer.getActivePokemon();
 		let events = [];
-		if (actingPokemon.getCurrentHP() < 1) {
-			return [];
-		}
 
 		switch (command.type) {
 			case 'ATTACK':
+				if (actingPokemon.getCurrentHP() < 1) {
+					break;;
+				}
 				const attackingPokemon = actingPokemon;
 				const defendingPokemon = opposingPokemon;
 				const move = Moves[command.move]
@@ -75,6 +75,18 @@ class Game {
 						trainer: opposingPlayer.socket.id
 					});
 				}
+				break;
+			case 'CHANGE_POKEMON':
+				const previousPokemon = actingPlayer.getActivePokemon();
+				const pokemon = actingPlayer.pokemon.find(pokemon => pokemon.name === command.name);
+				actingPlayer.currentPokemon = actingPlayer.pokemon.indexOf(pokemon);
+				events.push({
+					type: 'CHANGED_POKEMON',
+					previousPokemon: previousPokemon.name,
+					newPokemon: pokemon.name,
+					trainer: actingPlayer.socket.id
+				});
+				break;
 		}
 
 		return events;
