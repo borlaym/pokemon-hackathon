@@ -5,18 +5,16 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 let waitingPlayer;
-let rooms = [];
+let games = [];
+
+let Game = require('./objects/game.js');
 
 io.on('connection', function(socket){
   if (waitingPlayer) {
-		let id = Math.floor(Math.random() * 900000);
-		socket.join(id);
-		waitingPlayer.join(id);
-		rooms.push(id);
+		let newGame = new Game([waitingPlayer, socket]);
+		games.push(newGame);
 		waitingPlayer = null;
 		console.log('created new room');
-		console.log(rooms);
-		io.to(id).emit('Gamestart', {});
 	} else {
 		waitingPlayer = socket;
 		console.log('waiting for other player');

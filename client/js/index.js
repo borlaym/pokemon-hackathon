@@ -6,11 +6,19 @@ import io from 'socket.io-client';
 
 let connection = io('http://localhost:3001');
 
-connection.on('connect', (socket) => {
+connection.on('connect', () => {
 	console.log('connect');
 });
-connection.on('Gamestart', () => {
-	alert('joined game')
+connection.on('Game start', () => {
+ var btn = document.createElement('button');
+ btn.addEventListener('click', () => {
+	 	connection.emit('msg', window.prompt())
+ })
+ document.body.appendChild(btn);
+
+})
+connection.on('returnMsg', (msg) => {
+	alert(msg);
 })
 
 ReactDOM.render(<App />, document.getElementById('main'));
