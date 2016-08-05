@@ -3,3 +3,19 @@
   line-height: 1.5;
   color: #FF0000;
 }
+
+
+.health {
+	border: 1px solid black;
+	width: 200px;
+	height: 20px;
+	margin: 0;
+	padding: 0;
+}
+
+.healthbar {
+	background: bisque;
+	height: 100%;
+	width: 0%;
+	transition: 1s width;
+}

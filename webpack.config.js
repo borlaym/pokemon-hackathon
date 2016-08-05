@@ -1,5 +1,4 @@
 var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var devFlagPlugin = new webpack.DefinePlugin({
   __DEV__: JSON.stringify(JSON.parse(process.env.DEBUG || 'false'))
@@ -8,25 +7,21 @@ var devFlagPlugin = new webpack.DefinePlugin({
 module.exports = {
   entry: [
     'webpack-dev-server/client?http://localhost:3000',
-    'webpack/hot/only-dev-server',
     './client/js/index.js'
   ],
   output: {
-    path: __dirname + '/static/',
-    publicPath: '/static/',
+		path: __dirname + '/static/',
+		publicPath: '/static/',
     filename: 'bundle.js',
     hot: true
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    devFlagPlugin,
-    new ExtractTextPlugin('app.css')
+    devFlagPlugin
   ],
   module: {
     loaders: [
-      { test: /\.js$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/ },
-      { test: /\.css$/, loader: ExtractTextPlugin.extract('css-loader?module!cssnext-loader') }
+      { test: /\.js$/, loaders: ['babel'], exclude: /node_modules/ },
     ]
   },
   resolve: {
