@@ -18,8 +18,8 @@ let ServerController = {
 			this.connection.on(key, this[this.events[key]].bind(this))
 		});
 	},
-	gameStart() {
-		EventBus.trigger('gameStart');
+	gameStart(gameState) {
+		EventBus.trigger('gameStart', gameState);
 	},
 	roundEnd(results) {
 		console.log(results);

@@ -13,7 +13,8 @@ class Game {
 		Object.keys(this.events).forEach(key => {
 			this.on(key, this[this.events[key]].bind(this));
 		});
-		this.broadcast('gameStart');
+		// Send initial game state
+		this.broadcast('gameStart', this.players.map(player => player.serialize()));
 		this.commands = [];
 	}
 	broadcast(name, payload) {

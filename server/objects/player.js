@@ -26,6 +26,7 @@ module.exports = class Player {
 	}
 	serialize() {
 		return {
+			id: this.socket.id,
 			name: this.name,
 			pokemon: this.pokemon.map(pokemon => pokemon.serialize()),
 			currentPokemon: this.currentPokemon
