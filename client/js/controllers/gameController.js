@@ -73,23 +73,38 @@ let GameController = {
 					type: 'SHOW_TEXT',
 					text: opposing + event.pokemon + ' fainted!'
 				})
+				// If my pokemon fainted, make the user change a pokemon
+				if (this.getTrainer(event.trainer).get('id') === this.myId) {
+					viewActions.push({
+						type: 'CHOOSE_POKEMON',
+					});
+				} else {
+					// Make me wait for the opponent
+					viewActions.push({
+						type: 'OPPONENT_CHOOSE_POKEMON',
+					});
+				}
 				break;
 			case 'CHANGED_POKEMON':
-				viewActions.push({
-					type: 'SHOW_TEXT',
-					text: event.previousPokemon + ', enough! Come back!'
-				});
-				viewActions.push({
-					type: 'CALL_BACK_POKEMON',
-					trainer: this.getTrainer(event.trainer)
-				});
+				const trainer = this.getTrainer(event.trainer)
+				const currentPokemon = trainer.getActivePokemon();
+				if (currentPokemon.get('currentHP') !== 0) {
+					viewActions.push({
+						type: 'SHOW_TEXT',
+						text: event.previousPokemon + ', enough! Come back!'
+					});
+					viewActions.push({
+						type: 'CALL_BACK_POKEMON',
+						trainer
+					});
+				}
 				viewActions.push({
 					type: 'SHOW_TEXT',
 					text: 'Go! ' + event.newPokemon + '!'
 				});
 				viewActions.push({
 					type: 'SUMMON_POKEMON',
-					trainer: this.getTrainer(event.trainer),
+					trainer,
 					newPokemon: event.newPokemon
 				});
 				break;

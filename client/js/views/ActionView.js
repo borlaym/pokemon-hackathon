@@ -3,6 +3,9 @@ import EventBus from '../eventBus.js';
 import PokemonSelectorView from './PokemonSelectorView.js';
 
 let ActionView = Backbone.View.extend({
+	initialize() {
+		EventBus.on('makeMeChoosePokemon', this.onChangePokemon.bind(this));
+	},
 	events: {
 		'click .attack': 'onAttack',
 		'click .changePokemon': 'onChangePokemon',
