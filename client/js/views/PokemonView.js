@@ -4,8 +4,8 @@ import _ from 'underscore';
 import HealthBar from './HealthBar';
 
 let PokemonView = Backbone.View.extend({
-	className: 'pokemonview shake',
-	template: _.template('<p><%= name %></p><img src="<% if (player === "opponent") { print(frontImage)  } else  { print(backImage) } %>">'),
+	className: 'pokemonview',
+	template: _.template('<img src="<% if (player === "opponent") { print(frontImage)  } else  { print(backImage) } %>"><div class="status"><p><%= name %></p></div>'),
 	initialize(options) {
 		this.player = options.player;
 	},
@@ -20,7 +20,7 @@ let PokemonView = Backbone.View.extend({
 		this.$el.html(this.template(model));
 		this.el.classList.add(this.player);
 		var healthbar = new HealthBar({model: this.model});
-		this.$el.append(healthbar.render())
+		this.$('.status').append(healthbar.render())
 		return this.$el;
 	}
 });

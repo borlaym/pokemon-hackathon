@@ -12,8 +12,8 @@ html {
 
 .health {
 	border: 1px solid black;
-	width: 200px;
-	height: 20px;
+	width: 150px;
+	height: 5px;
 	margin: 0;
 	padding: 0;
 }
@@ -27,11 +27,22 @@ html {
 
 .pokemonview {
 	font-size: 12px;
+	height: 100px;
+	width: 300px;
+}
+
+.pokemonview.myself .status {
+	margin-left: 150px;
 }
 
 .pokemonview img {
-	width: 200px;
-	height: 200px;
+	width: 100px;
+	height: 100px;
+	float: left;
+}
+
+.pokemonview.opponent img {
+	float: right;
 }
 
 .pokemonview.blink img {
