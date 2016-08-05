@@ -8,7 +8,7 @@ let ViewController = {
 		let loginView = new LoginView();
 		this.renderView(loginView);
 
-		EventBus.on('connected', () => {
+		EventBus.on('gameStart', () => {
 			let koPapirOlloView = new KoPapirOlloView();
 			this.renderView(koPapirOlloView);
 		})
