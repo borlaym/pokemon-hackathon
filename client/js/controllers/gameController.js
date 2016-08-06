@@ -2,6 +2,7 @@ import EventBus from '../eventBus.js';
 import PlayerModel from '../models/player.js';
 import series from 'async-series';
 import _ from 'underscore';
+import ViewActionCreators from './viewActionCreators.js';
 
 let GameController = {
 	initialize() {
@@ -42,137 +43,7 @@ let GameController = {
 	},
 	// Create view actions from events
 	createViewActions(event) {
-		let viewActions = [];
-		let opposing = event.trainer === this.getMyself().get('id') ? "" : "Enemy ";
-		switch (event.type) {
-			///////// POKEMON USED MOVE
-			case 'POKEMON_USED_MOVE':
-				/////// DAMAGING MOVES
-				if (event.category === 'DAMAGE') {
-					viewActions.push({
-						type: 'SHOW_TEXT',
-						text: opposing + event.pokemon + ' used ' + event.move + '!',
-						trainer: event.trainer
-					});
-					if (event.missed) {
-						viewActions.push({
-							type: 'SHOW_TEXT',
-							text: 'But it missed!'
-						});
-						break;
-					}
-					viewActions.push({
-						type: 'BLINK_POKEMON',
-						trainer: this.getOpponentOf(event.trainer),
-						damage: event.damage
-					});
-					if (event.superEffective) {
-						viewActions.push({
-							type: 'SHOW_TEXT',
-							text: 'It\'s super effective!',
-							trainer: event.trainer
-						})
-					}
-					if (event.notEffective) {
-						viewActions.push({
-							type: 'SHOW_TEXT',
-							text: 'It\'s not very effective...',
-							trainer: event.trainer
-						})
-					}
-				} else {
-				/////// STAT CHANGING MOVES
-					const targetTrainer = this.getTrainer(event.targetTrainer);
-					viewActions.push({
-						type: 'SHOW_TEXT',
-						text: opposing + event.pokemon + ' used ' + event.move.name + '!',
-						trainer: event.trainer
-					});
-					if (event.missed) {
-						viewActions.push({
-							type: 'SHOW_TEXT',
-							text: 'But it missed!'
-						});
-						break;
-					}
-					viewActions.push({
-						type: 'SHAKE_POKEMON',
-						trainer: this.getOpponentOf(event.trainer)
-					});
-					const direction = event.move.modifier > 0 ? 'rose' : 'fell';
-					opposing = event.targetTrainer === this.getMyself().get('id') ? "" : "Enemy ";
-					let stat;
-					switch (event.move.attribute) {
-						case 'ATK':
-							stat = 'ATTACK';
-							break;
-						case 'DEF':
-							stat = 'DEFENSE';
-							break;
-						case 'SPATK':
-							stat = 'SPECIAL ATTACK';
-							break;
-						case 'SPDEF':
-							stat = 'SPECIAL DEFENSE';
-							break;
-						case 'SPD':
-							stat = 'SPEED';
-							break;
-						case 'Accuracy':
-							stat = 'ACCURACY';
-							break;
-					}
-					viewActions.push({
-						type: 'SHOW_TEXT',
-						text: opposing + targetTrainer.getActivePokemon().get('name') + '\'s ' + stat + ' ' + direction + '!',
-						trainer: event.trainer
-					});
-				}
-				break;
-			//////// POKEMON FAINTED
-			case 'POKEMON_FAINTED':
-				viewActions.push({
-					type: 'SHOW_TEXT',
-					text: opposing + event.pokemon + ' fainted!'
-				})
-				// If my pokemon fainted, make the user change a pokemon
-				if (this.getTrainer(event.trainer).get('id') === this.myId) {
-					viewActions.push({
-						type: 'CHOOSE_POKEMON',
-					});
-				} else {
-					// Make me wait for the opponent
-					viewActions.push({
-						type: 'OPPONENT_CHOOSE_POKEMON',
-					});
-				}
-				break;
-			//// TRAINER CHANGED POKEMON
-			case 'CHANGED_POKEMON':
-				const trainer = this.getTrainer(event.trainer)
-				const currentPokemon = trainer.getActivePokemon();
-				if (currentPokemon.get('currentHP') !== 0) {
-					viewActions.push({
-						type: 'SHOW_TEXT',
-						text: event.previousPokemon + ', enough! Come back!'
-					});
-					viewActions.push({
-						type: 'CALL_BACK_POKEMON',
-						trainer
-					});
-				}
-				viewActions.push({
-					type: 'SHOW_TEXT',
-					text: 'Go! ' + event.newPokemon + '!'
-				});
-				viewActions.push({
-					type: 'SUMMON_POKEMON',
-					trainer,
-					newPokemon: event.newPokemon
-				});
-				break;
-		}
-		return viewActions;
+		return ViewActionCreators[event.type](event, this);
 	},
 	getOpponent() {
 		return this.players.find(player => player.get('id') !== this.myId);
