@@ -8,14 +8,22 @@ html {
 	width: 15px;
 	margin-bottom: -10px;
 }
-.pokemonSelector ul {
+.pokemonSelector {
 	list-style-type: none;
 	margin: 0px;
-	padding-left: 20px;
+	padding-top: 5px;
+	padding-left: 10px;
 	width: 160px;
+	height: 145px;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	background: url(../../images/bg6.png);
+	box-sizing: border-box;
 }
 .pokemonSelector li {
 	height: 15px;
+	cursor: pointer;
 }
 .pokemonSelector .pokemonname {
 	font-size: 7px;
@@ -23,9 +31,14 @@ html {
 .pokemonSelector .numeric {
 	font-size: 8px;
 	padding-left: 10px;
-	margin-top: 10px;
+	margin-top: 2px;
 	position: absolute;
-	left: 110px;
+	left: 100px;
+}
+.pokemonSelector .health {
+	margin: 0;
+	margin-top: 0px;
+	margin-left: 15px;
 }
 .text {
   font-size: 2rem;

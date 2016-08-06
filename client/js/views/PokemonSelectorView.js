@@ -6,6 +6,7 @@ import $ from 'jquery';
 
 let PokemonSelectorView = Backbone.View.extend({
 	tagName: 'ul',
+	className: 'pokemonSelector',
 	events: {
 		'click .pokemon': 'selectPokemon'
 	},
@@ -22,10 +23,10 @@ let PokemonSelectorView = Backbone.View.extend({
 			let healthBar = new HealthBar({
 				model: pokemon
 			});
-
+			let image = pokemon.getSmallImageSrc();
 			pokemon = pokemon.toJSON();
-			let li = $('<li class="pokemon" data-name="' + pokemon.name + '"><img src="images/pigismall.png" class="birds">' +'<span class="pokemonname">' + pokemon.name + '</span><span class="numeric">' + pokemon.currentHP + '/'+ pokemon.maxHP + '</span></li>');
-			li.append(healthBar.$el);
+			let li = $('<li class="pokemon" data-name="' + pokemon.name + '"><img src="' + image + '" class="birds">' +'<span class="pokemonname">' + pokemon.name + '</span><span class="numeric">' + pokemon.currentHP + '/'+ pokemon.maxHP + '</span></li>');
+			li.append(healthBar.render());
 			this.$el.append(li);
 
 		});
