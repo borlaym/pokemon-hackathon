@@ -4,9 +4,31 @@ html {
 	background: #d4bd9e;
 }
 
+.birds {
+	width: 15px;
+	margin-bottom: -10px;
+}
+.pokemonSelector ul {
+	list-style-type: none;
+	margin: 0px;
+	padding-left: 20px;
+	width: 160px;
+}
+.pokemonSelector li {
+	height: 15px;
+}
+.pokemonSelector .pokemonname {
+	font-size: 7px;
+}
+.pokemonSelector .numeric {
+	font-size: 8px;
+	padding-left: 10px;
+	margin-top: 10px;
+	position: absolute;
+	left: 110px;
+}
 .text {
   font-size: 2rem;
-  -height: 1.5;
   color: #FF0000;
 }
 
