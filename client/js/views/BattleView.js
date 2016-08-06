@@ -1,7 +1,7 @@
 import Backbone from 'backbone';
 import EventBus from '../eventBus.js';
 import PokemonView from './PokemonView.js';
-import GameController from '../controllers/GameController.js';
+import GameController from '../controllers/gameController.js';
 
 let BattleView = Backbone.View.extend({
 	className: 'battleView',
