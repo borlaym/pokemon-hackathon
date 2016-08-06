@@ -2,20 +2,43 @@ html {
 	font-family: pixelfont;
 	font-size: 20px;
 }
-
+.health {
+	border: 1px solid black;
+	border-radius: 5px;
+	width: 40px;
+	height: 2px;
+	background: green;
+	margin-left: 35px;
+	margin-top: -3px;
+	padding: 0;
+}
+.birds {
+	width: 15px;
+	margin-bottom: -10px;
+}
+ul {
+	list-style-type: none;
+	margin: 0px;
+	padding-left: 20px;
+	width: 160px;
+}
+li {
+	height: 15px;
+}
+.pokemonname {
+	font-size: 7px;
+}
+.numeric {
+	font-size: 8px;
+	padding-left: 10px;
+	margin-top: 10px;
+	position: absolute;
+	left: 110px;
+}
 .text {
   font-size: 2rem;
   line-height: 1.5;
   color: #FF0000;
-}
-
-
-.health {
-	border: 1px solid black;
-	width: 200px;
-	height: 20px;
-	margin: 0;
-	padding: 0;
 }
 
 .healthbar {
@@ -72,4 +95,3 @@ html {
 
 }
 @font-face {font-family:"pixelfont";src:url("Pokemon GB.ttf") format("truetype");font-style:normal;}
-
