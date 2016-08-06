@@ -72,6 +72,19 @@ class Game {
 				const move = Moves[command.move.replace(' ', '_')]
 				const attackingPokemon = actingPokemon;
 				const defendingPokemon = opposingPokemon;
+				const hitChance = move.accuracy * (attackingPokemon.getAccuracy() / defendingPokemon.getEvasion());
+				const isHit = Math.random() < hitChance;
+				if (!isHit) {
+					events.push({
+						type: 'POKEMON_USED_MOVE',
+						pokemon: attackingPokemon.name,
+						move: move.name,
+						trainer: actingPlayer.socket.id,
+						category: 'DAMAGE',
+						missed: true
+					});
+					break;
+				}
 				if (move.category === 'DAMAGE') {
 					const ATK = move.attribute === 'SPATK' ? attackingPokemon.getSPATK() : attackingPokemon.getATK();
 					const DEF = move.attribute === 'SPATK' ? defendingPokemon.getSPDEF() : defendingPokemon.getDEF();
@@ -112,7 +125,7 @@ class Game {
 						category: 'MODIFIER',
 						pokemon: attackingPokemon.name,
 						trainer: actingPlayer.socket.id,
-						target: targetPokemon.name,
+						targetTrainer: opposingPlayer.socket.id,
 						move: move
 					});
 				}

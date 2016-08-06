@@ -41,6 +41,16 @@ module.exports = {
 		target: 'opponent',
 		modifier: -1
 	},
+	SAND_ATTACK: {
+		name: 'SAND ATTACK',
+		type: Types.NORMAL,
+		accuracy: 1,
+		SPDModifier: 0,
+		category: 'MODIFIER',
+		attribute: 'Accuracy',
+		target: 'opponent',
+		modifier: -1
+	},
 	EMBER: {
 		name: 'EMBER',
 		type: Types.FIRE,

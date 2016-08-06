@@ -43,7 +43,7 @@ let GameController = {
 	// Create view actions from events
 	createViewActions(event) {
 		let viewActions = [];
-		const opposing = event.trainer === this.getMyself().get('id') ? "" : "Enemy ";
+		let opposing = event.trainer === this.getMyself().get('id') ? "" : "Enemy ";
 		switch (event.type) {
 			///////// POKEMON USED MOVE
 			case 'POKEMON_USED_MOVE':
@@ -54,6 +54,13 @@ let GameController = {
 						text: opposing + event.pokemon + ' used ' + event.move + '!',
 						trainer: event.trainer
 					});
+					if (event.missed) {
+						viewActions.push({
+							type: 'SHOW_TEXT',
+							text: 'But it missed!'
+						});
+						break;
+					}
 					viewActions.push({
 						type: 'BLINK_POKEMON',
 						trainer: this.getOpponentOf(event.trainer),
@@ -75,16 +82,25 @@ let GameController = {
 					}
 				} else {
 				/////// STAT CHANGING MOVES
+					const targetTrainer = this.getTrainer(event.targetTrainer);
 					viewActions.push({
 						type: 'SHOW_TEXT',
 						text: opposing + event.pokemon + ' used ' + event.move.name + '!',
 						trainer: event.trainer
 					});
+					if (event.missed) {
+						viewActions.push({
+							type: 'SHOW_TEXT',
+							text: 'But it missed!'
+						});
+						break;
+					}
 					viewActions.push({
 						type: 'SHAKE_POKEMON',
 						trainer: this.getOpponentOf(event.trainer)
 					});
 					const direction = event.move.modifier > 0 ? 'rose' : 'fell';
+					opposing = event.targetTrainer === this.getMyself().get('id') ? "" : "Enemy ";
 					let stat;
 					switch (event.move.attribute) {
 						case 'ATK':
@@ -102,10 +118,13 @@ let GameController = {
 						case 'SPD':
 							stat = 'SPEED';
 							break;
+						case 'Accuracy':
+							stat = 'ACCURACY';
+							break;
 					}
 					viewActions.push({
 						type: 'SHOW_TEXT',
-						text: opposing + event.target + '\'s ' + stat + ' ' + direction + '!',
+						text: opposing + targetTrainer.getActivePokemon().get('name') + '\'s ' + stat + ' ' + direction + '!',
 						trainer: event.trainer
 					});
 				}

@@ -32,7 +32,9 @@ class Pokemon {
 			DEFModifier: 0,
 			SPATKModifier: 0,
 			SPDEFModifier: 0,
-			SPDModifier: 0
+			SPDModifier: 0,
+			AccuracyModifier: 0,
+			EvasionModifier: 0
 		};
 		this.moves = moves;
 	}
@@ -53,6 +55,12 @@ class Pokemon {
 	}
 	getCurrentHP() {
 		return this.variables.HP;
+	}
+	getAccuracy() {
+		return StageMultipliers[this.variables.AccuracyModifier];
+	}
+	getEvasion() {
+		return 1 / StageMultipliers[this.variables.EvasionModifier];
 	}
 	decreaseHP(amount) {
 		this.variables.HP -= amount;
@@ -103,7 +111,7 @@ class Rattata extends Pokemon {
 
 class Pidgey extends Pokemon {
 	constructor() {
-		super('PIDGEY', Types.FLYING, 45, 40, 40, 35, 35, 56, [Moves.TACKLE, Moves.GUST])
+		super('PIDGEY', Types.FLYING, 45, 40, 40, 35, 35, 56, [Moves.TACKLE, Moves.GUST, Moves.SAND_ATTACK])
 	}
 }
 
