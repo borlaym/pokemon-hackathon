@@ -21,8 +21,47 @@ module.exports = {
 		attribute: 'ATK',
 		category: 'DAMAGE'
 	},
+	HYPER_FANG: {
+		name: 'HYPER FANG',
+		type: Types.NORMAL,
+		power: 80,
+		accuracy: 0.9,
+		SPDModifier: 0,
+		attribute: 'ATK',
+		category: 'DAMAGE'
+	},
 	GROWL: {
 		name: 'GROWL',
+		type: Types.NORMAL,
+		accuracy: 1,
+		SPDModifier: 0,
+		category: 'MODIFIER',
+		attribute: 'ATK',
+		target: 'opponent',
+		modifier: -1
+	},
+	FEATHER_DANCE: {
+		name: 'FEATHER DANCE',
+		type: Types.FLYING,
+		accuracy: 1,
+		SPDModifier: 0,
+		category: 'MODIFIER',
+		attribute: 'ATK',
+		target: 'opponent',
+		modifier: -2
+	},
+	SCARY_FACE: {
+		name: 'SCARY FACE',
+		type: Types.NORMAL,
+		accuracy: 1,
+		SPDModifier: 0,
+		category: 'MODIFIER',
+		attribute: 'SPD',
+		target: 'opponent',
+		modifier: -2
+	},
+	PLAY_NICE: {
+		name: 'PLAY NICE',
 		type: Types.NORMAL,
 		accuracy: 1,
 		SPDModifier: 0,
