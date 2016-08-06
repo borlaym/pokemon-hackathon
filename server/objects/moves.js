@@ -8,6 +8,15 @@ module.exports = {
 		type: Types.NORMAL,
 		power: 40,
 		accuracy: 1,
+		SPDModifier: 0,
+		attribute: 'ATK'
+	},
+	QUICK_ATTACK: {
+		name: 'QUICK ATTACK',
+		type: Types.NORMAL,
+		power: 40,
+		accuracy: 1,
+		SPDModifier: 100,
 		attribute: 'ATK'
 	},
 	EMBER: {
@@ -15,6 +24,7 @@ module.exports = {
 		type: Types.FIRE,
 		power: 40,
 		accuracy: 1,
+		SPDModifier: 0,
 		attribute: 'SPATK'
 	},
 	VINE_WHIP: {
@@ -22,6 +32,7 @@ module.exports = {
 		type: Types.GRASS,
 		power: 45,
 		accuracy: 1,
+		SPDModifier: 0,
 		attribute: 'SPATK'
 	},
 	WATER_GUN: {
@@ -29,6 +40,7 @@ module.exports = {
 		type: Types.WATER,
 		power: 40,
 		accuracy: 1,
+		SPDModifier: 0,
 		attribute: 'SPATK'
 	},
 	THUNDER_SHOCK: {
@@ -36,6 +48,7 @@ module.exports = {
 		type: Types.ELECTRIC,
 		power: 40,
 		accuracy: 1,
+		SPDModifier: 0,
 		attribute: 'SPATK'
 	},
 	GUST: {
@@ -43,6 +56,7 @@ module.exports = {
 		type: Types.FLYING,
 		power: 40,
 		accuracy: 1,
+		SPDModifier: 0,
 		attribute: 'SPATK'
 	}
 }

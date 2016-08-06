@@ -74,7 +74,7 @@ class Game {
 				const move = Moves[command.move.replace(' ', '_')]
 				const ATK = move.attribute === 'SPATK' ? attackingPokemon.getSPATK() : attackingPokemon.getATK();
 				const DEF = move.attribute === 'SPATK' ? defendingPokemon.getSPDEF() : defendingPokemon.getDEF();
-				const baseDamage = (70/250) * (ATK/DEF) * move.power + 2;
+				const baseDamage = (50/250) * (ATK/DEF) * move.power + 2;
 				const typeModifier = typeResolver[move.type][defendingPokemon.type];
 				const STAB = move.type === attackingPokemon.type ? 1.5 : 1;
 				const finalDamage = Math.floor(baseDamage * STAB * typeModifier);
@@ -119,9 +119,11 @@ class Game {
 		// Then resolve attack events on order of SPD of the active pokemon
 		let attackCommands = this.commands.filter(command => command.type === 'ATTACK');
 		attackCommands = attackCommands.sort((commandA, commandB) => {
+			const moveA = Moves[commandA.move.replace(' ', '_')]
+			const moveB = Moves[commandB.move.replace(' ', '_')]
 			// Get the SPD of the active pokemon of the player giving the command
-			const SPDA = commandA.player.getActivePokemon().getSPD();
-			const SPDB = commandB.player.getActivePokemon().getSPD();
+			const SPDA = commandA.player.getActivePokemon().getSPD() + moveA.SPDModifier;
+			const SPDB = commandB.player.getActivePokemon().getSPD() + moveB.SPDModifier;
 			return SPDB - SPDA;
 		});
 		events = events.concat(attackCommands.map(event => this.createEventsFromCommand(event)));

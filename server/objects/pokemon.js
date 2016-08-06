@@ -76,7 +76,7 @@ class Pikachu extends Pokemon {
 
 class Rattata extends Pokemon {
 	constructor() {
-		super('RATTATA', Types.NORMAL, 56, 35, 30, 25, 35, 72, [Moves.TACKLE])
+		super('RATTATA', Types.NORMAL, 56, 35, 30, 25, 35, 72, [Moves.TACKLE, Moves.QUICK_ATTACK])
 	}
 }
 
