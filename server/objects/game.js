@@ -17,6 +17,8 @@ const typeResolver = {
 	'WATER': { 'NORMAL': 1, 'FIRE': 2, 'GRASS': 0.5, 'WATER': 0.5, 'ELECTRIC': 1, 'FLYING': 1},
 	'ELECTRIC': { 'NORMAL': 1, 'FIRE': 1, 'GRASS': 0.5, 'WATER': 2, 'ELECTRIC': 0.5, 'FLYING': 2},
 	'FLYING': { 'NORMAL': 1, 'FIRE': 1, 'GRASS': 2, 'WATER': 1, 'ELECTRIC': 0.5, 'FLYING': 1},
+	'ICE': { 'NORMAL': 1, 'FIRE': 0.5, 'GRASS': 2, 'WATER': 0.5, 'ELECTRIC': 1, 'FLYING': 2},
+	'POISON': { 'NORMAL': 1, 'FIRE': 1, 'GRASS': 2, 'WATER': 1, 'ELECTRIC': 1, 'FLYING': 1},
 };
 
 /**

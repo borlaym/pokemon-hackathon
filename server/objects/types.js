@@ -4,5 +4,7 @@ module.exports = {
 	WATER : 'WATER',
 	NORMAL : 'NORMAL',
 	FLYING : 'FLYING',
-	ELECTRIC : 'ELECTRIC'
+	ELECTRIC : 'ELECTRIC',
+	ICE: 'ICE',
+	POISON: 'POISON'
 };

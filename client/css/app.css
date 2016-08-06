@@ -194,6 +194,7 @@ html {
 
 .moveSelector li {
 	cursor: pointer;
+	margin-bottom: 1px;
 }
 
 .textview {

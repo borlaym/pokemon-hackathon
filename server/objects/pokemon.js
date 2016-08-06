@@ -81,7 +81,7 @@ class Pokemon {
 
 class Bulbasaur extends Pokemon {
 	constructor() {
-		super('BULBASAUR', Types.GRASS, 49, 49, 45, 65, 65, 45, [Moves.TACKLE, Moves.VINE_WHIP, Moves.GROWL])
+		super('BULBASAUR', Types.GRASS, 49, 49, 45, 65, 65, 45, [Moves.TACKLE, Moves.VINE_WHIP, Moves.GROWL, Moves.VENOSHOCK])
 	}
 }
 
@@ -93,7 +93,7 @@ class Charmander extends Pokemon {
 
 class Squirtle extends Pokemon {
 	constructor() {
-		super('SQUIRTLE', Types.WATER, 48, 65, 44, 50, 64, 43, [Moves.TACKLE, Moves.WATER_GUN, Moves.TAIL_WHIP])
+		super('SQUIRTLE', Types.WATER, 48, 65, 44, 50, 64, 43, [Moves.TACKLE, Moves.WATER_GUN, Moves.TAIL_WHIP, Moves.BLIZZARD])
 	}
 }
 

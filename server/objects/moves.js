@@ -99,6 +99,15 @@ module.exports = {
 		attribute: 'SPATK',
 		category: 'DAMAGE'
 	},
+	WATER_GUN: {
+		name: 'WATER GUN',
+		type: Types.WATER,
+		power: 40,
+		accuracy: 1,
+		SPDModifier: 0,
+		attribute: 'SPATK',
+		category: 'DAMAGE'
+	},
 	VINE_WHIP: {
 		name: 'VINE WHIP',
 		type: Types.GRASS,
@@ -108,11 +117,20 @@ module.exports = {
 		attribute: 'SPATK',
 		category: 'DAMAGE'
 	},
-	WATER_GUN: {
-		name: 'WATER GUN',
-		type: Types.WATER,
-		power: 40,
+	VENOSHOCK: {
+		name: 'VENOSHOCK',
+		type: Types.POISON,
+		power: 65,
 		accuracy: 1,
+		SPDModifier: 0,
+		attribute: 'SPATK',
+		category: 'DAMAGE'
+	},
+	BLIZZARD: {
+		name: 'BLIZZARD',
+		type: Types.ICE,
+		power: 110,
+		accuracy: 0.7,
 		SPDModifier: 0,
 		attribute: 'SPATK',
 		category: 'DAMAGE'
