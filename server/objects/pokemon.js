@@ -79,25 +79,25 @@ class Bulbasaur extends Pokemon {
 
 class Charmander extends Pokemon {
 	constructor() {
-		super('CHARMANDER', Types.FIRE, 52, 43, 39, 60, 50, 65, [Moves.TACKLE, Moves.EMBER])
+		super('CHARMANDER', Types.FIRE, 52, 43, 39, 60, 50, 65, [Moves.TACKLE, Moves.EMBER, Moves.GROWL])
 	}
 }
 
 class Squirtle extends Pokemon {
 	constructor() {
-		super('SQUIRTLE', Types.WATER, 48, 65, 44, 50, 64, 43, [Moves.TACKLE, Moves.WATER_GUN])
+		super('SQUIRTLE', Types.WATER, 48, 65, 44, 50, 64, 43, [Moves.TACKLE, Moves.WATER_GUN, Moves.TAIL_WHIP])
 	}
 }
 
 class Pikachu extends Pokemon {
 	constructor() {
-		super('PIKACHU', Types.ELECTRIC, 55, 40, 35, 50, 50, 90, [Moves.TACKLE, Moves.THUNDER_SHOCK])
+		super('PIKACHU', Types.ELECTRIC, 55, 40, 35, 50, 50, 90, [Moves.TACKLE, Moves.THUNDER_SHOCK, Moves.TAIL_WHIP])
 	}
 }
 
 class Rattata extends Pokemon {
 	constructor() {
-		super('RATTATA', Types.NORMAL, 56, 35, 30, 25, 35, 72, [Moves.TACKLE, Moves.QUICK_ATTACK])
+		super('RATTATA', Types.NORMAL, 56, 35, 30, 25, 35, 72, [Moves.TACKLE, Moves.QUICK_ATTACK, Moves.TAIL_WHIP])
 	}
 }
 

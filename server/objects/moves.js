@@ -31,6 +31,16 @@ module.exports = {
 		target: 'opponent',
 		modifier: -1
 	},
+	TAIL_WHIP: {
+		name: 'TAIL WHIP',
+		type: Types.NORMAL,
+		accuracy: 1,
+		SPDModifier: 0,
+		category: 'MODIFIER',
+		attribute: 'DEF',
+		target: 'opponent',
+		modifier: -1
+	},
 	EMBER: {
 		name: 'EMBER',
 		type: Types.FIRE,
