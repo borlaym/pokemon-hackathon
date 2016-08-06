@@ -162,6 +162,7 @@ html {
 	border: none;
 	font-family: pixelfont;
 	outline: none;
+	cursor: pointer;
 }
 
 .moveSelector {

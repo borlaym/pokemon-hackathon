@@ -63,6 +63,13 @@ let GameController = {
 						trainer: event.trainer
 					})
 				}
+				if (event.notEffective) {
+					viewActions.push({
+						type: 'SHOW_TEXT',
+						text: 'It\'s not very effective...',
+						trainer: event.trainer
+					})
+				}
 				break;
 			case 'POKEMON_FAINTED':
 				viewActions.push({

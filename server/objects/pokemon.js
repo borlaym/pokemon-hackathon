@@ -21,6 +21,12 @@ class Pokemon {
 	getDEF() {
 		return this.baseAttributes.DEF;
 	}
+	getSPATK() {
+		return this.baseAttributes.SPATK;
+	}
+	getSPDEF() {
+		return this.baseAttributes.SPDEF;
+	}
 	getSPD() {
 		return this.baseAttributes.SPD;
 	}

@@ -2,6 +2,22 @@
 
 const Moves = require('./moves.js');
 const _ = require('underscore');
+const Types = require('./types.js');
+
+/**
+ * Resolve type strength
+ * first key is the attack move's type
+ * second key is the defender's type
+ * @type {Object}
+ */
+const typeResolver = {
+	'NORMAL': { 'NORMAL': 1, 'FIRE': 1, 'GRASS': 1, 'WATER': 1, 'ELECTRIC': 1, 'FLYING': 1},
+	'FIRE': { 'NORMAL': 1, 'FIRE': 0.5, 'GRASS': 2, 'WATER': 0.5, 'ELECTRIC': 1, 'FLYING': 1},
+	'GRASS': { 'NORMAL': 1, 'FIRE': 0.5, 'GRASS': 0.5, 'WATER': 2, 'ELECTRIC': 1, 'FLYING': 0.5},
+	'WATER': { 'NORMAL': 1, 'FIRE': 2, 'GRASS': 0.5, 'WATER': 0.5, 'ELECTRIC': 1, 'FLYING': 1},
+	'ELECTRIC': { 'NORMAL': 1, 'FIRE': 1, 'GRASS': 0.5, 'WATER': 2, 'ELECTRIC': 0.5, 'FLYING': 2},
+	'FLYING': { 'NORMAL': 1, 'FIRE': 1, 'GRASS': 2, 'WATER': 1, 'ELECTRIC': 0.5, 'FLYING': 1},
+};
 
 class Game {
 	constructor(players) {
@@ -55,18 +71,21 @@ class Game {
 				}
 				const attackingPokemon = actingPokemon;
 				const defendingPokemon = opposingPokemon;
-				const move = Moves[command.move]
-				const ATK = attackingPokemon.getATK();
-				const DEF = defendingPokemon.getDEF();
+				const move = Moves[command.move.replace(' ', '_')]
+				const ATK = move.attribute === 'SPATK' ? attackingPokemon.getSPATK() : attackingPokemon.getATK();
+				const DEF = move.attribute === 'SPATK' ? defendingPokemon.getSPDEF() : defendingPokemon.getDEF();
 				const baseDamage = (70/250) * (ATK/DEF) * move.power + 2;
-				const finalDamage = Math.floor(baseDamage);
+				const typeModifier = typeResolver[move.type][defendingPokemon.type];
+				const STAB = move.type === attackingPokemon.type ? 1.5 : 1;
+				const finalDamage = Math.floor(baseDamage * STAB * typeModifier);
 				defendingPokemon.decreaseHP(finalDamage);
 				events.push({
 					type: 'POKEMON_USED_MOVE',
 					pokemon: attackingPokemon.name,
 					damage: finalDamage,
 					move: move.name,
-					superEffective: false,
+					superEffective: typeModifier === 2 ? true : false,
+					notEffective: typeModifier === 0.5 ? true : false,
 					trainer: actingPlayer.socket.id
 				});
 				if (defendingPokemon.getCurrentHP() < 1) {
