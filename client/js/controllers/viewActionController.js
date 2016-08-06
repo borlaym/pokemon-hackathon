@@ -10,6 +10,7 @@ let ViewActionController = {
 		this.gameController = gameController;
 		EventBus.on('viewAction:SHOW_TEXT', this.showText.bind(this));
 		EventBus.on('viewAction:BLINK_POKEMON', this.blinkPokemon.bind(this));
+		EventBus.on('viewAction:SHAKE_POKEMON', this.shakePokemon.bind(this));
 		EventBus.on('viewAction:FAINT_POKEMON', this.faintPokemon.bind(this));
 		EventBus.on('viewAction:CALL_BACK_POKEMON', this.callBackPokemon.bind(this));
 		EventBus.on('viewAction:SUMMON_POKEMON', this.summonPokemon.bind(this));
@@ -27,6 +28,11 @@ let ViewActionController = {
 		setTimeout(() => {
 			EventBus.trigger('finishedAction');
 		}, 1000);
+	},
+	shakePokemon(action) {
+		let pokemon = action.trainer.getActivePokemon();
+		pokemon.shake();
+		EventBus.trigger('finishedAction');
 	},
 	faintPokemon(action) {
 		let pokemon = action.trainer.getActivePokemon();

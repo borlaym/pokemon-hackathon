@@ -24,6 +24,12 @@ let PokemonView = Backbone.View.extend({
 		this.model.on('faint', () => {
 			this.$el.addClass('fainted');
 		});
+		this.model.on('shake', () => {
+			this.$el.addClass('shake');
+			setTimeout(() => {
+				this.$el.removeClass('shake');
+			}, 800);
+		});
 	},
 	unbindModelEvents() {
 		this.model.off('change faint summon');

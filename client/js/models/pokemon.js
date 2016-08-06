@@ -30,6 +30,9 @@ let PokemonModel = Backbone.Model.extend({
 	faint(callback) {
 		this.trigger('faint');
 		setTimeout(callback, 700);
+	},
+	shake() {
+		this.trigger('shake');
 	}
 });
 

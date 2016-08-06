@@ -3,6 +3,22 @@
 let Types = require('./types.js');
 let Moves = require('./moves.js');
 
+const StageMultipliers = {
+	[-6]: 2/8,
+	[-5]: 2/7,
+	[-4]: 2/6,
+	[-3]: 2/5,
+	[-2]: 2/4,
+	[-1]: 2/3,
+	0: 1,
+	1: 3/2,
+	2: 4/2,
+	3: 5/2,
+	4: 6/2,
+	5: 7/2,
+	6: 8/2
+}
+
 class Pokemon {
 	constructor(name, type, ATK, DEF, HP, SPATK, SPDEF, SPD, moves) {
 		this.name = name;
@@ -11,24 +27,29 @@ class Pokemon {
 			ATK, DEF, HP, SPATK, SPDEF, SPD
 		};
 		this.variables = {
-			HP: this.baseAttributes.HP
+			HP: this.baseAttributes.HP,
+			ATKModifier: 0,
+			DEFModifier: 0,
+			SPATKModifier: 0,
+			SPDEFModifier: 0,
+			SPDModifier: 0
 		};
 		this.moves = moves;
 	}
 	getATK() {
-		return this.baseAttributes.ATK;
+		return Math.floor(StageMultipliers[this.variables.ATKModifier] * this.baseAttributes.ATK);
 	}
 	getDEF() {
-		return this.baseAttributes.DEF;
+		return Math.floor(StageMultipliers[this.variables.DEFModifier] * this.baseAttributes.DEF);
 	}
 	getSPATK() {
-		return this.baseAttributes.SPATK;
+		return Math.floor(StageMultipliers[this.variables.SPATKModifier] * this.baseAttributes.SPATK);
 	}
 	getSPDEF() {
-		return this.baseAttributes.SPDEF;
+		return Math.floor(StageMultipliers[this.variables.SPDEFModifier] * this.baseAttributes.SPDEF);
 	}
 	getSPD() {
-		return this.baseAttributes.SPD;
+		return Math.floor(StageMultipliers[this.variables.SPDModifier] * this.baseAttributes.SPD);
 	}
 	getCurrentHP() {
 		return this.variables.HP;
@@ -52,7 +73,7 @@ class Pokemon {
 
 class Bulbasaur extends Pokemon {
 	constructor() {
-		super('BULBASAUR', Types.GRASS, 49, 49, 45, 65, 65, 45, [Moves.TACKLE, Moves.VINE_WHIP])
+		super('BULBASAUR', Types.GRASS, 49, 49, 45, 65, 65, 45, [Moves.TACKLE, Moves.VINE_WHIP, Moves.GROWL])
 	}
 }
 

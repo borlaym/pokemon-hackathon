@@ -67,32 +67,53 @@ class Game {
 		switch (command.type) {
 			case 'ATTACK':
 				if (actingPokemon.getCurrentHP() < 1) {
-					break;;
+					break;
 				}
+				const move = Moves[command.move.replace(' ', '_')]
 				const attackingPokemon = actingPokemon;
 				const defendingPokemon = opposingPokemon;
-				const move = Moves[command.move.replace(' ', '_')]
-				const ATK = move.attribute === 'SPATK' ? attackingPokemon.getSPATK() : attackingPokemon.getATK();
-				const DEF = move.attribute === 'SPATK' ? defendingPokemon.getSPDEF() : defendingPokemon.getDEF();
-				const baseDamage = (50/250) * (ATK/DEF) * move.power + 2;
-				const typeModifier = typeResolver[move.type][defendingPokemon.type];
-				const STAB = move.type === attackingPokemon.type ? 1.5 : 1;
-				const finalDamage = Math.floor(baseDamage * STAB * typeModifier);
-				defendingPokemon.decreaseHP(finalDamage);
-				events.push({
-					type: 'POKEMON_USED_MOVE',
-					pokemon: attackingPokemon.name,
-					damage: finalDamage,
-					move: move.name,
-					superEffective: typeModifier === 2 ? true : false,
-					notEffective: typeModifier === 0.5 ? true : false,
-					trainer: actingPlayer.socket.id
-				});
-				if (defendingPokemon.getCurrentHP() < 1) {
+				if (move.category === 'DAMAGE') {
+					const ATK = move.attribute === 'SPATK' ? attackingPokemon.getSPATK() : attackingPokemon.getATK();
+					const DEF = move.attribute === 'SPATK' ? defendingPokemon.getSPDEF() : defendingPokemon.getDEF();
+					const baseDamage = (50/250) * (ATK/DEF) * move.power + 2;
+					const typeModifier = typeResolver[move.type][defendingPokemon.type];
+					const STAB = move.type === attackingPokemon.type ? 1.5 : 1;
+					const finalDamage = Math.floor(baseDamage * STAB * typeModifier);
+					defendingPokemon.decreaseHP(finalDamage);
 					events.push({
-						type: 'POKEMON_FAINTED',
-						pokemon: defendingPokemon.name,
-						trainer: opposingPlayer.socket.id
+						type: 'POKEMON_USED_MOVE',
+						pokemon: attackingPokemon.name,
+						damage: finalDamage,
+						move: move.name,
+						superEffective: typeModifier === 2 ? true : false,
+						notEffective: typeModifier === 0.5 ? true : false,
+						trainer: actingPlayer.socket.id,
+						category: 'DAMAGE'
+					});
+					if (defendingPokemon.getCurrentHP() < 1) {
+						events.push({
+							type: 'POKEMON_FAINTED',
+							pokemon: defendingPokemon.name,
+							trainer: opposingPlayer.socket.id
+						});
+					}
+				} else {
+					const targetPokemon = move.target === 'opponent' ? defendingPokemon : attackingPokemon;
+					const variableName = move.attribute + 'Modifier'
+					targetPokemon.variables[variableName] += move.modifier;
+					if (targetPokemon.variables[variableName] < -6) {
+						targetPokemon.variables[variableName] = -6;
+					}
+					if (targetPokemon.variables[variableName] > 6) {
+						targetPokemon.variables[variableName] = 6;
+					}
+					events.push({
+						type: 'POKEMON_USED_MOVE',
+						category: 'MODIFIER',
+						pokemon: attackingPokemon.name,
+						trainer: actingPlayer.socket.id,
+						target: targetPokemon.name,
+						move: move
 					});
 				}
 				break;

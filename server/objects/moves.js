@@ -9,7 +9,8 @@ module.exports = {
 		power: 40,
 		accuracy: 1,
 		SPDModifier: 0,
-		attribute: 'ATK'
+		attribute: 'ATK',
+		category: 'DAMAGE'
 	},
 	QUICK_ATTACK: {
 		name: 'QUICK ATTACK',
@@ -17,7 +18,18 @@ module.exports = {
 		power: 40,
 		accuracy: 1,
 		SPDModifier: 100,
-		attribute: 'ATK'
+		attribute: 'ATK',
+		category: 'DAMAGE'
+	},
+	GROWL: {
+		name: 'GROWL',
+		type: Types.NORMAL,
+		accuracy: 1,
+		SPDModifier: 0,
+		category: 'MODIFIER',
+		attribute: 'ATK',
+		target: 'opponent',
+		modifier: -1
 	},
 	EMBER: {
 		name: 'EMBER',
@@ -25,7 +37,8 @@ module.exports = {
 		power: 40,
 		accuracy: 1,
 		SPDModifier: 0,
-		attribute: 'SPATK'
+		attribute: 'SPATK',
+		category: 'DAMAGE'
 	},
 	VINE_WHIP: {
 		name: 'VINE WHIP',
@@ -33,7 +46,8 @@ module.exports = {
 		power: 45,
 		accuracy: 1,
 		SPDModifier: 0,
-		attribute: 'SPATK'
+		attribute: 'SPATK',
+		category: 'DAMAGE'
 	},
 	WATER_GUN: {
 		name: 'WATER GUN',
@@ -41,7 +55,8 @@ module.exports = {
 		power: 40,
 		accuracy: 1,
 		SPDModifier: 0,
-		attribute: 'SPATK'
+		attribute: 'SPATK',
+		category: 'DAMAGE'
 	},
 	THUNDER_SHOCK: {
 		name: 'THUNDER SHOCK',
@@ -49,7 +64,8 @@ module.exports = {
 		power: 40,
 		accuracy: 1,
 		SPDModifier: 0,
-		attribute: 'SPATK'
+		attribute: 'SPATK',
+		category: 'DAMAGE'
 	},
 	GUST: {
 		name: 'GUST',
@@ -57,6 +73,7 @@ module.exports = {
 		power: 40,
 		accuracy: 1,
 		SPDModifier: 0,
-		attribute: 'SPATK'
+		attribute: 'SPATK',
+		category: 'DAMAGE'
 	}
 }

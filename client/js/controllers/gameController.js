@@ -45,37 +45,73 @@ let GameController = {
 		let viewActions = [];
 		const opposing = event.trainer === this.getMyself().get('id') ? "" : "Enemy ";
 		switch (event.type) {
+			///////// POKEMON USED MOVE
 			case 'POKEMON_USED_MOVE':
-				viewActions.push({
-					type: 'SHOW_TEXT',
-					text: opposing + event.pokemon + ' used ' + event.move + '!',
-					trainer: event.trainer
-				});
-				viewActions.push({
-					type: 'BLINK_POKEMON',
-					trainer: this.getOpponentOf(event.trainer),
-					damage: event.damage
-				});
-				if (event.superEffective) {
+				/////// DAMAGING MOVES
+				if (event.category === 'DAMAGE') {
 					viewActions.push({
 						type: 'SHOW_TEXT',
-						text: 'It\'s super effective!',
+						text: opposing + event.pokemon + ' used ' + event.move + '!',
 						trainer: event.trainer
-					})
-				}
-				if (event.notEffective) {
+					});
+					viewActions.push({
+						type: 'BLINK_POKEMON',
+						trainer: this.getOpponentOf(event.trainer),
+						damage: event.damage
+					});
+					if (event.superEffective) {
+						viewActions.push({
+							type: 'SHOW_TEXT',
+							text: 'It\'s super effective!',
+							trainer: event.trainer
+						})
+					}
+					if (event.notEffective) {
+						viewActions.push({
+							type: 'SHOW_TEXT',
+							text: 'It\'s not very effective...',
+							trainer: event.trainer
+						})
+					}
+				} else {
+				/////// STAT CHANGING MOVES
 					viewActions.push({
 						type: 'SHOW_TEXT',
-						text: 'It\'s not very effective...',
+						text: opposing + event.pokemon + ' used ' + event.move.name + '!',
 						trainer: event.trainer
-					})
+					});
+					viewActions.push({
+						type: 'SHAKE_POKEMON',
+						trainer: this.getOpponentOf(event.trainer)
+					});
+					const direction = event.move.modifier > 0 ? 'rose' : 'fell';
+					let stat;
+					switch (event.move.attribute) {
+						case 'ATK':
+							stat = 'ATTACK';
+							break;
+						case 'DEF':
+							stat = 'DEFENSE';
+							break;
+						case 'SPATK':
+							stat = 'SPECIAL ATTACK';
+							break;
+						case 'SPDEF':
+							stat = 'SPECIAL DEFENSE';
+							break;
+						case 'SPD':
+							stat = 'SPEED';
+							break;
+					}
+					viewActions.push({
+						type: 'SHOW_TEXT',
+						text: opposing + event.target + '\'s ' + stat + ' ' + direction + '!',
+						trainer: event.trainer
+					});
 				}
 				break;
+			//////// POKEMON FAINTED
 			case 'POKEMON_FAINTED':
-				viewActions.push({
-					type: 'FAINT_POKEMON',
-					trainer: this.getTrainer(event.trainer)
-				})
 				viewActions.push({
 					type: 'SHOW_TEXT',
 					text: opposing + event.pokemon + ' fainted!'
@@ -92,6 +128,7 @@ let GameController = {
 					});
 				}
 				break;
+			//// TRAINER CHANGED POKEMON
 			case 'CHANGED_POKEMON':
 				const trainer = this.getTrainer(event.trainer)
 				const currentPokemon = trainer.getActivePokemon();
