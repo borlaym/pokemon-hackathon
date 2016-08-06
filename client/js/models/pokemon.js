@@ -11,7 +11,13 @@ let PokemonModel = Backbone.Model.extend({
 		return 'images/' + this.get('name').toLowerCase() + '-back.png';
 	},
 	getSmallImageSrc() {
-		return 'images/pigismall.png';
+		if (this.get('name') === 'PIDGEY') {
+			return 'images/birdsmall.png';
+		} else if (this.get('name') === 'PIKACHU') {
+			return 'images/pikachusmall.png';
+		} else {
+			return 'images/normalsmall.png';
+		}
 	},
 	decreaseHP(amount) {
 		var currentHP = this.get('currentHP');
