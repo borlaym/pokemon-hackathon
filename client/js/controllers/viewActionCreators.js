@@ -102,6 +102,10 @@ let POKEMON_USED_MOVE = (event, scope) => {
 let POKEMON_FAINTED = (event, scope) => {
 	let viewActions = [];
 	let opposing = event.trainer === scope.getMyself().get('id') ? "" : "Enemy ";
+	viewActions.push({
+		type: 'FAINT_POKEMON',
+		trainer: scope.getTrainer(event.trainer)
+	});
 	viewActions.push(_createTextAction(opposing + event.pokemon + ' fainted!'))
 	// If my pokemon fainted, make the user change a pokemon
 	if (scope.getTrainer(event.trainer).get('id') === scope.myId) {

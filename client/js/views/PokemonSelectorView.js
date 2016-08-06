@@ -11,7 +11,11 @@ let PokemonSelectorView = Backbone.View.extend({
 		'click .pokemon': 'selectPokemon'
 	},
 	selectPokemon(event) {
-		let name = $(event.currentTarget).data('name');
+		const name = $(event.currentTarget).data('name');
+		const pokemon = GameController.getMyself().get('pokemon').find(pokemon => pokemon.get('name') === name);
+		if (pokemon.get('currentHP') < 1) {
+			return;
+		}
 		EventBus.trigger('command', {
 			type: "CHANGE_POKEMON",
 			name
