@@ -58,7 +58,7 @@ class Game {
 				const move = Moves[command.move]
 				const ATK = attackingPokemon.getATK();
 				const DEF = defendingPokemon.getDEF();
-				const baseDamage = (110/250) * (ATK/DEF) * move.power + 2;
+				const baseDamage = (70/250) * (ATK/DEF) * move.power + 2;
 				const finalDamage = Math.floor(baseDamage);
 				defendingPokemon.decreaseHP(finalDamage);
 				events.push({
