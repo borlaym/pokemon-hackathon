@@ -1,6 +1,7 @@
 import Backbone from 'backbone';
 import EventBus from '../eventBus.js';
 import PokemonSelectorView from './PokemonSelectorView.js';
+import MoveSelectorView from './MoveSelectorView.js';
 
 let ActionView = Backbone.View.extend({
 	className: 'actionView',
@@ -12,10 +13,8 @@ let ActionView = Backbone.View.extend({
 		'click .changePokemon': 'onChangePokemon',
 	},
 	onAttack() {
-		EventBus.trigger('command', {
-			type: 'ATTACK',
-			move: 'TACKLE'
-		});
+		let selectorView = new MoveSelectorView();
+		this.$el.append(selectorView.render());
 	},
 	onChangePokemon() {
 		let selectorView = new PokemonSelectorView();
